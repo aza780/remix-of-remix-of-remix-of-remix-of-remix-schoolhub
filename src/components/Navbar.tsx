@@ -1,5 +1,5 @@
 import { Link, useLocation, useNavigate } from "@tanstack/react-router";
-import { Home, GraduationCap, Trophy, Calendar, Menu, X, LogIn, LogOut, LayoutDashboard } from "lucide-react";
+import { Home, GraduationCap, Trophy, Calendar, Menu, X, LogIn, LogOut, LayoutDashboard, User } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { useAuth } from "@/hooks/use-auth";
 import { useUserRole } from "@/hooks/useUserRole";
@@ -233,6 +233,14 @@ export function Navbar() {
                     {userEmail}
                   </span>
                 </div>
+
+                <button
+                    onClick={handleProfile}
+                    className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-foreground hover:bg-secondary"
+                  >
+                    <User className="h-4 w-4" />
+                    Profil Saya
+                  </button>
 
                 {hasAdminAccess && (
                   <button

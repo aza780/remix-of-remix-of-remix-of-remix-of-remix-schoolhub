@@ -23,6 +23,7 @@ export function UserDropdown({ email, hasAdminAccess, onDashboard, onLogout, onP
 
       {/* Menu items */}
       <div className="py-1">
+        {/* Profil Saya — semua user yang login */}
         <button
           onClick={onProfile}
           className="flex w-full items-center gap-2 px-4 py-2 text-sm text-foreground hover:bg-secondary"
@@ -30,6 +31,8 @@ export function UserDropdown({ email, hasAdminAccess, onDashboard, onLogout, onP
           <User className="h-4 w-4" />
           Profil Saya
         </button>
+
+        {/* Dashboard — hanya admin */}
         {hasAdminAccess && (
           <button
             onClick={onDashboard}
