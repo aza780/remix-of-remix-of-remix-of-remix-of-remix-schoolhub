@@ -5,6 +5,7 @@ import { fetchPostBySlug } from "@/lib/supabase-queries";
 import { getDeadlineStatus, formatDeadline } from "@/lib/helpers";
 import { getPostStatus } from "@/lib/getPostStatus";
 import { StatusBadge } from "@/components/StatusBadge";
+import { BookmarkButton } from "@/components/BookmarkButton";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Navbar } from "@/components/Navbar";
@@ -90,6 +91,7 @@ function PostDetailPage() {
               {formatDeadline(post.deadline)}
             </span>
           )}
+          <BookmarkButton postId={post.id} variant="detail" />
         </div>
 
         <h1 className="text-2xl font-bold text-foreground md:text-3xl">{post.title}</h1>
