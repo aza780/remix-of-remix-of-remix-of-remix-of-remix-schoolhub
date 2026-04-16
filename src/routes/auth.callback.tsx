@@ -11,26 +11,30 @@ function AuthCallbackPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const handleCallback = async () => {
-      const {
-        data: { session },
-        error,
-      } = await supabase.auth.getSession();
-
-      if (error) {
-        console.error("Auth callback error:", error);
-        navigate({ to: "/login", replace: true });
-        return;
-      }
-
-      if (session) {
+    // Listen for the auth state change triggered by Supabase
+    // processing the OAuth callback (hash params or PKCE code exchange)
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === "SIGNED_IN" && session) {
         navigate({ to: "/", replace: true });
-      } else {
-        navigate({ to: "/login", replace: true });
+      } else if (event === "TOKEN_REFRESHED") {
+        // ignore, wait for SIGNED_IN
+      } else if (event === "INITIAL_SESSION") {
+        // If there's already a session from the hash/code exchange, redirect
+        if (session) {
+          navigate({ to: "/", replace: true });
+        }
       }
-    };
+    });
 
-    handleCallback();
+    // Fallback: if nothing happens within 5s, go to login
+    const timeout = setTimeout(() => {
+      navigate({ to: "/login", replace: true });
+    }, 5000);
+
+    return () => {
+      subscription.unsubscribe();
+      clearTimeout(timeout);
+    };
   }, [navigate]);
 
   return (
