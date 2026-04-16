@@ -7,12 +7,16 @@
 | `super_admin` | Kelola semua post + kelola role tim |
 | `admin` | Kelola post milik sendiri saja |
 
-## Cara menambah anggota tim baru
+## Cara menambah anggota tim baru (Google Auth)
 
-1. Minta anggota register di `[URL aplikasi]/register`
+1. Minta anggota login ke aplikasi menggunakan akun Google mereka (sekali saja)
 2. Buka Lovable Cloud → Database → SQL Editor
-3. Jalankan query di `docs/admin-management.sql` (bagian INSERT)
+3. Jalankan query INSERT di `docs/admin-management.sql`
 4. Verifikasi dengan query SELECT
+
+> **Catatan:** anggota HARUS login via Google terlebih dahulu sebelum
+> bisa ditambahkan sebagai admin, karena user_id mereka harus
+> terdaftar di auth.users dulu.
 
 ## Cara mencabut akses
 
