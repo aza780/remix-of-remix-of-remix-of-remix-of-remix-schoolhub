@@ -2,7 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { useAuth } from "@/hooks/use-auth";
-import { lovable } from "@/integrations/lovable/index";
+import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/login")({
@@ -23,25 +23,21 @@ function LoginPage() {
   const handleGoogleLogin = async () => {
     setPending(true);
     try {
-      const result = await lovable.auth.signInWithOAuth("google", {
-        redirect_uri: window.location.origin,
-        extraParams: {
-          prompt: "select_account",
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback`,
+          queryParams: {
+            prompt: "select_account",
+          },
         },
       });
 
-      if (result.error) {
+      if (error) {
         toast.error("Gagal masuk dengan Google");
         setPending(false);
-        return;
       }
-
-      if (result.redirected) {
-        return; // browser will redirect
-      }
-
-      // session set, navigate
-      navigate({ to: "/" });
+      // browser will redirect to Google
     } catch {
       toast.error("Gagal masuk dengan Google");
       setPending(false);
