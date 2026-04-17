@@ -19,11 +19,7 @@ function ProfilePage() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<"profil" | "disimpan">("profil");
 
-  if (!loading && !user) {
-    navigate({ to: "/login" });
-    return null;
-  }
-
+  // Wait for auth to finish before deciding to redirect
   if (loading) {
     return (
       <div className="min-h-screen bg-background">
@@ -33,6 +29,11 @@ function ProfilePage() {
         </div>
       </div>
     );
+  }
+
+  if (!user) {
+    navigate({ to: "/login" });
+    return null;
   }
 
   const email = user?.email ?? "";

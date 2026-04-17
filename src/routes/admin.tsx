@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { useEffect } from "react";
 import { signOut } from "@/lib/auth";
 import { Button } from "@/components/ui/button";
+import { FullPageSpinner } from "@/components/ui/FullPageSpinner";
 import { LayoutDashboard, LogOut } from "lucide-react";
 
 export const Route = createFileRoute("/admin")({
@@ -21,16 +22,17 @@ function AdminLayout() {
   const hasAccess = can.accessAdmin(role ?? "public");
 
   useEffect(() => {
-    if (!isLoading && !user) {
+    if (isLoading) return; // wait for both auth and role
+    if (!user) {
       navigate({ to: "/login" });
-    } else if (!isLoading && user && !hasAccess) {
+    } else if (!hasAccess) {
       toast.error("Akses ditolak");
       navigate({ to: "/" });
     }
   }, [isLoading, user, hasAccess, navigate]);
 
   if (isLoading) {
-    return <div className="flex min-h-screen items-center justify-center text-muted-foreground">Memuat...</div>;
+    return <FullPageSpinner />;
   }
 
   if (!user || !hasAccess) return null;
