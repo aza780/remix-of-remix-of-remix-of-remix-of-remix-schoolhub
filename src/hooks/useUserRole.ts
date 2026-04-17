@@ -1,13 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/hooks/use-auth";
 
 export type UserRole = "super_admin" | "admin" | "public";
 
 export function useUserRole() {
+  const { session, loading: authLoading } = useAuth();
+
   return useQuery({
-    queryKey: ["user-role"],
+    queryKey: ["user-role", session?.user.id],
     queryFn: async (): Promise<UserRole> => {
-      const { data: { session } } = await supabase.auth.getSession();
       if (!session) return "public";
 
       const { data, error } = await supabase
@@ -19,6 +21,7 @@ export function useUserRole() {
       if (error || !data) return "public";
       return data.role as UserRole;
     },
+    enabled: !authLoading,
     staleTime: 5 * 60 * 1000,
     retry: false,
   });

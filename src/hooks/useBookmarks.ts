@@ -4,7 +4,7 @@ import { useAuth } from "@/hooks/use-auth";
 import { toast } from "sonner";
 
 export function useBookmarkedIds() {
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
 
   return useQuery({
     queryKey: ["bookmarks", "ids", user?.id],
@@ -17,13 +17,13 @@ export function useBookmarkedIds() {
       if (error) throw error;
       return new Set(data.map((b) => b.post_id));
     },
-    enabled: !!user,
+    enabled: !authLoading && !!user,
     staleTime: 2 * 60 * 1000,
   });
 }
 
 export function useBookmarkedPosts() {
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
 
   return useQuery({
     queryKey: ["bookmarks", "posts", user?.id],
@@ -44,7 +44,7 @@ export function useBookmarkedPosts() {
       if (error) throw error;
       return (data ?? []).filter((b) => b.post !== null);
     },
-    enabled: !!user,
+    enabled: !authLoading && !!user,
   });
 }
 

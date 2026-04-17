@@ -1,6 +1,6 @@
 import { Outlet, Link, createRootRouteWithContext, HeadContent, Scripts } from "@tanstack/react-router";
 import { Toaster } from "sonner";
-import { AuthProvider } from "@/hooks/use-auth";
+import { AuthProvider, useAuth } from "@/hooks/use-auth";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import appCss from "../styles.css?url";
@@ -60,13 +60,32 @@ function RootShell({ children }: { children: React.ReactNode }) {
   );
 }
 
+function AppGate() {
+  const { loading } = useAuth();
+  if (loading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-background">
+        <div className="flex flex-col items-center gap-3">
+          <div className="h-10 w-10 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+          <p className="text-sm font-medium text-muted-foreground">Memuat aplikasi...</p>
+        </div>
+      </div>
+    );
+  }
+  return (
+    <>
+      <Outlet />
+      <Toaster position="top-right" richColors />
+    </>
+  );
+}
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <Outlet />
-        <Toaster position="top-right" richColors />
+        <AppGate />
       </AuthProvider>
     </QueryClientProvider>
   );

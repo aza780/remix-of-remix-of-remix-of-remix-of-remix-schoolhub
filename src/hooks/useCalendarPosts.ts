@@ -1,7 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/hooks/use-auth";
 
 export function useCalendarPosts(year: number, month: number) {
+  // Public data, but wait for auth so RLS evaluates with the right session
+  const { loading: authLoading } = useAuth();
+
   return useQuery({
     queryKey: ["calendar-posts", year, month],
     queryFn: async () => {
@@ -19,5 +23,6 @@ export function useCalendarPosts(year: number, month: number) {
       if (error) throw error;
       return data;
     },
+    enabled: !authLoading,
   });
 }

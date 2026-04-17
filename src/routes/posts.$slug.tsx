@@ -9,6 +9,7 @@ import { BookmarkButton } from "@/components/BookmarkButton";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Navbar } from "@/components/Navbar";
+import { useAuth } from "@/hooks/use-auth";
 
 export const Route = createFileRoute("/posts/$slug")({
   component: PostDetailPage,
@@ -23,9 +24,11 @@ const deadlineClasses: Record<string, string> = {
 
 function PostDetailPage() {
   const { slug } = Route.useParams();
+  const { loading: authLoading } = useAuth();
   const { data: post, isLoading, error } = useQuery({
     queryKey: ["post", slug],
     queryFn: () => fetchPostBySlug(slug),
+    enabled: !authLoading,
   });
 
   if (isLoading) {
