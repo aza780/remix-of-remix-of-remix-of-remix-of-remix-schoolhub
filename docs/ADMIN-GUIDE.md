@@ -1,4 +1,4 @@
-# Panduan Manajemen Admin — ScholarHub
+# Panduan Manajemen Admin — Agenda Prestasi
 
 ## Role yang tersedia
 

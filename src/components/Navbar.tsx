@@ -91,7 +91,7 @@ export function Navbar() {
       <nav className="sticky top-0 z-50 h-16 border-b border-border/50 bg-card/80 backdrop-blur-md">
         <div className="mx-auto flex h-full max-w-6xl items-center justify-between px-4">
           <Link to="/" className="text-xl font-bold text-primary">
-            ScholarHub
+            Agenda Prestasi
           </Link>
 
           {/* Desktop nav links */}

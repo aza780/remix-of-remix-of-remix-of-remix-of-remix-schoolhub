@@ -33,9 +33,9 @@ export const Route = createRootRouteWithContext<RouterContext>()({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "ScholarHub — Beasiswa & Lomba" },
+      { title: "Agenda Prestasi — Beasiswa & Lomba" },
       { name: "description", content: "Temukan beasiswa dan lomba terbaru untuk mahasiswa dan pelajar Indonesia." },
-      { property: "og:title", content: "ScholarHub — Beasiswa & Lomba" },
+      { property: "og:title", content: "Agenda Prestasi — Beasiswa & Lomba" },
       { property: "og:description", content: "Platform pencarian beasiswa dan kompetisi terbaru." },
       { property: "og:type", content: "website" },
     ],
