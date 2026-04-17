@@ -53,7 +53,7 @@ function LoginPage() {
         {/* Branding */}
         <div className="mb-8">
           <Link to="/" className="text-3xl font-bold text-primary">
-            ScholarHub
+            Agenda Prestasi
           </Link>
           <p className="mt-3 text-base text-muted-foreground leading-relaxed">
             Temukan beasiswa dan lomba

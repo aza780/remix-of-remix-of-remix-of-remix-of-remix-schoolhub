@@ -11,7 +11,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 export const Route = createFileRoute("/calendar")({
   head: () => ({
     meta: [
-      { title: "Kalender — ScholarHub" },
+      { title: "Kalender — Agenda Prestasi" },
       { name: "description", content: "Kalender deadline beasiswa dan lomba." },
     ],
   }),

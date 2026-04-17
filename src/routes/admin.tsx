@@ -42,7 +42,7 @@ function AdminLayout() {
       <header className="sticky top-0 z-50 border-b bg-card/80 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
           <div className="flex items-center gap-3">
-            <Link to="/" className="text-xl font-bold text-primary">ScholarHub</Link>
+            <Link to="/" className="text-xl font-bold text-primary">Agenda Prestasi</Link>
             <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
               {role === "super_admin" ? "Super Admin" : "Admin"}
             </span>
