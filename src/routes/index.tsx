@@ -6,6 +6,7 @@ import { fetchPublishedPosts } from "@/lib/supabase-queries";
 import { Navbar } from "@/components/Navbar";
 import { PostCard } from "@/components/PostCard";
 import { PostCardSkeleton } from "@/components/PostCardSkeleton";
+import { useAuth } from "@/hooks/use-auth";
 
 type HomeSearch = { category?: string };
 
@@ -29,10 +30,12 @@ function HomePage() {
   const { category } = Route.useSearch();
   const [search, setSearch] = useState("");
   const debouncedSearch = useDebounce(search, 300);
+  const { loading: authLoading } = useAuth();
 
   const { data: posts, isLoading } = useQuery({
     queryKey: ["posts", category, debouncedSearch],
     queryFn: () => fetchPublishedPosts(category || undefined, debouncedSearch || undefined),
+    enabled: !authLoading,
   });
 
   return (
