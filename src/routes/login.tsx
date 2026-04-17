@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { useAuth } from "@/hooks/use-auth";
 import { lovable } from "@/integrations/lovable";
+import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/login")({
@@ -14,6 +15,10 @@ function LoginPage() {
   const { user, loading } = useAuth();
   const [pending, setPending] = useState(false);
 
+  const isLocalhost =
+    typeof window !== "undefined" &&
+    ["localhost", "127.0.0.1"].includes(window.location.hostname);
+
   useEffect(() => {
     if (!loading && user) {
       navigate({ to: "/" });
@@ -23,6 +28,23 @@ function LoginPage() {
   const handleGoogleLogin = async () => {
     setPending(true);
     try {
+      if (isLocalhost) {
+        const { error } = await supabase.auth.signInWithOAuth({
+          provider: "google",
+          options: {
+            redirectTo: `${window.location.origin}/auth/callback`,
+            queryParams: { prompt: "select_account" },
+          },
+        });
+
+        if (error) {
+          toast.error("Gagal masuk dengan Google");
+          setPending(false);
+        }
+
+        return;
+      }
+
       const result = await lovable.auth.signInWithOAuth("google", {
         redirect_uri: window.location.origin,
         extraParams: { prompt: "select_account" },
