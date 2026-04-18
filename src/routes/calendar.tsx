@@ -8,6 +8,8 @@ import { StatusBadge } from "@/components/StatusBadge";
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { ALL_CATEGORIES, CATEGORY_CONFIG, getCategoryConfig, type Category } from "@/lib/getCategoryConfig";
+import { MonthlyListSection } from "@/components/calendar/MonthlyListSection";
+import { getMonthLabelID } from "@/lib/formatDate";
 
 export const Route = createFileRoute("/calendar")({
   head: () => ({
@@ -90,6 +92,26 @@ function CalendarPage() {
     }
     return result;
   }, [posts, categoryFilters, eventTypeFilters]);
+
+  const monthLabel = getMonthLabelID(year, month);
+
+  const groupedPosts = useMemo(() => {
+    type P = NonNullable<typeof posts>[number];
+    const empty = { scholarship: [] as P[], competition: [] as P[], event: [] as P[] };
+    if (!posts) return empty;
+    const unique = Array.from(new Map(posts.map((p) => [p.id, p])).values());
+    const sortByDeadline = (arr: P[]) =>
+      [...arr].sort((a, b) => {
+        if (!a.deadline) return 1;
+        if (!b.deadline) return -1;
+        return new Date(a.deadline).getTime() - new Date(b.deadline).getTime();
+      });
+    return {
+      scholarship: sortByDeadline(unique.filter((p) => p.category === "scholarship")),
+      competition: sortByDeadline(unique.filter((p) => p.category === "competition")),
+      event: sortByDeadline(unique.filter((p) => p.category === "event")),
+    };
+  }, [posts]);
 
   const grid = useMemo(() => {
     const daysInMonth = new Date(year, month, 0).getDate();
@@ -293,11 +315,15 @@ function CalendarPage() {
           </div>
         )}
 
-        {/* Empty state */}
-        {!isLoading && !isError && events.length === 0 && (
-          <div className="mt-8 text-center">
-            <CalendarIcon className="mx-auto mb-2 h-10 w-10 text-muted-foreground/40" />
-            <p className="text-muted-foreground">Tidak ada jadwal di bulan ini.</p>
+        {/* Monthly list — Beasiswa, Lomba, Event for active month */}
+        {!isError && (
+          <div className="mt-8">
+            <h2 className="mb-4 text-base font-bold text-foreground sm:text-lg">
+              Jadwal {monthLabel} {year}
+            </h2>
+            <MonthlyListSection category="scholarship" posts={groupedPosts.scholarship} isLoading={isLoading} monthLabel={monthLabel} />
+            <MonthlyListSection category="competition" posts={groupedPosts.competition} isLoading={isLoading} monthLabel={monthLabel} />
+            <MonthlyListSection category="event" posts={groupedPosts.event} isLoading={isLoading} monthLabel={monthLabel} />
           </div>
         )}
       </div>
