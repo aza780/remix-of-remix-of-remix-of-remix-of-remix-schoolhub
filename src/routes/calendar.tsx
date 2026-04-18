@@ -314,11 +314,15 @@ function CalendarPage() {
           </div>
         )}
 
-        {/* Empty state */}
-        {!isLoading && !isError && events.length === 0 && (
-          <div className="mt-8 text-center">
-            <CalendarIcon className="mx-auto mb-2 h-10 w-10 text-muted-foreground/40" />
-            <p className="text-muted-foreground">Tidak ada jadwal di bulan ini.</p>
+        {/* Monthly list — Beasiswa, Lomba, Event for active month */}
+        {!isError && (
+          <div className="mt-8">
+            <h2 className="mb-4 text-base font-bold text-foreground sm:text-lg">
+              Jadwal {monthLabel} {year}
+            </h2>
+            <MonthlyListSection category="scholarship" posts={groupedPosts.scholarship} isLoading={isLoading} monthLabel={monthLabel} />
+            <MonthlyListSection category="competition" posts={groupedPosts.competition} isLoading={isLoading} monthLabel={monthLabel} />
+            <MonthlyListSection category="event" posts={groupedPosts.event} isLoading={isLoading} monthLabel={monthLabel} />
           </div>
         )}
       </div>
