@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { slugify } from "@/lib/helpers";
 import { uploadPostImage, type Post, type PostInsert } from "@/lib/supabase-queries";
+import { ALL_CATEGORIES, CATEGORY_CONFIG, type Category } from "@/lib/getCategoryConfig";
 import { toast } from "sonner";
 import { Upload } from "lucide-react";
 
@@ -19,8 +20,8 @@ export function PostForm({ initialData, onSubmit, loading }: PostFormProps) {
   const [slug, setSlug] = useState(initialData?.slug ?? "");
   const [description, setDescription] = useState(initialData?.description ?? "");
   const [content, setContent] = useState(initialData?.content ?? "");
-  const [category, setCategory] = useState<"scholarship" | "competition">(
-    (initialData?.category as "scholarship" | "competition") ?? "scholarship"
+  const [category, setCategory] = useState<Category>(
+    (initialData?.category as Category) ?? "scholarship"
   );
   const [openDate, setOpenDate] = useState(initialData?.open_date ?? "");
   const [deadline, setDeadline] = useState(initialData?.deadline ?? "");
@@ -93,11 +94,11 @@ export function PostForm({ initialData, onSubmit, loading }: PostFormProps) {
 
       <div className="space-y-2">
         <Label>Kategori *</Label>
-        <div className="flex gap-4">
-          {([["scholarship", "Beasiswa"], ["competition", "Lomba"]] as const).map(([val, label]) => (
+        <div className="flex flex-wrap gap-4">
+          {ALL_CATEGORIES.map((val) => (
             <label key={val} className="flex cursor-pointer items-center gap-2">
               <input type="radio" name="category" value={val} checked={category === val} onChange={() => setCategory(val)} className="accent-primary" />
-              <span className="text-sm">{label}</span>
+              <span className="text-sm">{CATEGORY_CONFIG[val].label}</span>
             </label>
           ))}
         </div>

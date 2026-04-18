@@ -4,6 +4,7 @@ import { ArrowLeft, ExternalLink, Calendar } from "lucide-react";
 import { fetchPostBySlug } from "@/lib/supabase-queries";
 import { getDeadlineStatus, formatDeadline } from "@/lib/helpers";
 import { getPostStatus } from "@/lib/getPostStatus";
+import { getCategoryConfig } from "@/lib/getCategoryConfig";
 import { StatusBadge } from "@/components/StatusBadge";
 import { BookmarkButton } from "@/components/BookmarkButton";
 import { Button } from "@/components/ui/button";
@@ -60,6 +61,7 @@ function PostDetailPage() {
 
   const deadlineStatus = getDeadlineStatus(post.deadline);
   const postStatus = getPostStatus(post);
+  const categoryConfig = getCategoryConfig(post.category);
 
   return (
     <div className="min-h-screen bg-background">
@@ -83,10 +85,8 @@ function PostDetailPage() {
         )}
 
         <div className="mb-4 flex flex-wrap items-center gap-2">
-          <span className={`rounded-full px-3 py-1 text-xs font-medium ${
-            post.category === "scholarship" ? "bg-primary/10 text-primary" : "bg-emerald/10 text-emerald"
-          }`}>
-            {post.category === "scholarship" ? "Beasiswa" : "Lomba"}
+          <span className={`rounded-full px-3 py-1 text-xs font-medium ${categoryConfig.pillClass}`}>
+            {categoryConfig.label}
           </span>
           {post.deadline && (
             <span className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-medium ${deadlineClasses[deadlineStatus]}`}>

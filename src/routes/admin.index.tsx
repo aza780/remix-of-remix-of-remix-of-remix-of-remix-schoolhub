@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { fetchAllPosts, deletePost, togglePostStatus } from "@/lib/supabase-queries";
+import { getCategoryConfig } from "@/lib/getCategoryConfig";
 import { useAuth } from "@/hooks/use-auth";
 import { useUserRole } from "@/hooks/useUserRole";
 import { can } from "@/lib/permissions";
@@ -110,11 +111,14 @@ function AdminPostsPage() {
                       )}
                     </td>
                     <td className="px-4 py-3 hidden sm:table-cell">
-                      <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${
-                        post.category === "scholarship" ? "bg-primary/10 text-primary" : "bg-emerald/10 text-emerald"
-                      }`}>
-                        {post.category === "scholarship" ? "Beasiswa" : "Lomba"}
-                      </span>
+                      {(() => {
+                        const cc = getCategoryConfig(post.category);
+                        return (
+                          <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${cc.pillClass}`}>
+                            {cc.label}
+                          </span>
+                        );
+                      })()}
                     </td>
                     <td className="px-4 py-3 hidden md:table-cell text-muted-foreground">
                       {post.deadline ? new Date(post.deadline).toLocaleDateString("id-ID") : "—"}
