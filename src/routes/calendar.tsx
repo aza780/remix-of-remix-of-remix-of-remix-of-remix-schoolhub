@@ -93,6 +93,25 @@ function CalendarPage() {
     return result;
   }, [posts, categoryFilters, eventTypeFilters]);
 
+  const monthLabel = getMonthLabelID(year, month);
+
+  const groupedPosts = useMemo(() => {
+    const empty = { scholarship: [] as typeof posts, competition: [] as typeof posts, event: [] as typeof posts };
+    if (!posts) return empty;
+    const unique = Array.from(new Map(posts.map((p) => [p.id, p])).values());
+    const sortByDeadline = (arr: typeof posts) =>
+      [...arr].sort((a, b) => {
+        if (!a.deadline) return 1;
+        if (!b.deadline) return -1;
+        return new Date(a.deadline).getTime() - new Date(b.deadline).getTime();
+      });
+    return {
+      scholarship: sortByDeadline(unique.filter((p) => p.category === "scholarship")),
+      competition: sortByDeadline(unique.filter((p) => p.category === "competition")),
+      event: sortByDeadline(unique.filter((p) => p.category === "event")),
+    };
+  }, [posts]);
+
   const grid = useMemo(() => {
     const daysInMonth = new Date(year, month, 0).getDate();
     let firstDayOfWeek = new Date(year, month - 1, 1).getDay();
