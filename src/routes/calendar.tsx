@@ -319,14 +319,8 @@ function CalendarPage() {
             </div>
             <div className="px-5 pb-6">
               <div className="mb-3 flex flex-wrap items-center gap-2">
-                <span
-                  className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${
-                    selectedEvent.category === "scholarship"
-                      ? "bg-blue-100 text-blue-800"
-                      : "bg-emerald-100 text-emerald-800"
-                  }`}
-                >
-                  {selectedEvent.category === "scholarship" ? "Beasiswa" : "Lomba"}
+                <span className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${getCategoryConfig(selectedEvent.category).badgeClass}`}>
+                  {getCategoryConfig(selectedEvent.category).label}
                 </span>
                 <StatusBadge status={getPostStatus(selectedEvent)} />
               </div>
@@ -366,14 +360,8 @@ function CalendarPage() {
             >
               <div className="mb-4 flex items-start justify-between">
                 <div className="flex flex-wrap items-center gap-2">
-                  <span
-                    className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${
-                      selectedEvent.category === "scholarship"
-                        ? "bg-blue-100 text-blue-800"
-                        : "bg-emerald-100 text-emerald-800"
-                    }`}
-                  >
-                    {selectedEvent.category === "scholarship" ? "Beasiswa" : "Lomba"}
+                  <span className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${getCategoryConfig(selectedEvent.category).badgeClass}`}>
+                    {getCategoryConfig(selectedEvent.category).label}
                   </span>
                   <StatusBadge status={getPostStatus(selectedEvent)} />
                 </div>
