@@ -96,10 +96,11 @@ function CalendarPage() {
   const monthLabel = getMonthLabelID(year, month);
 
   const groupedPosts = useMemo(() => {
-    const empty = { scholarship: [] as typeof posts, competition: [] as typeof posts, event: [] as typeof posts };
+    type P = NonNullable<typeof posts>[number];
+    const empty = { scholarship: [] as P[], competition: [] as P[], event: [] as P[] };
     if (!posts) return empty;
     const unique = Array.from(new Map(posts.map((p) => [p.id, p])).values());
-    const sortByDeadline = (arr: typeof posts) =>
+    const sortByDeadline = (arr: P[]) =>
       [...arr].sort((a, b) => {
         if (!a.deadline) return 1;
         if (!b.deadline) return -1;
