@@ -86,13 +86,10 @@ function HomePage() {
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center py-20 text-center">
-            <div className="mb-4 flex gap-2">
-              <GraduationCap className="h-12 w-12 text-muted-foreground/40" />
-              <Trophy className="h-12 w-12 text-muted-foreground/40" />
-            </div>
+            <Sparkles className="mb-4 h-12 w-12 text-muted-foreground/40" />
             <h3 className="text-lg font-semibold text-muted-foreground">Belum ada postingan</h3>
             <p className="mt-1 text-sm text-muted-foreground/70">
-              {search ? "Tidak ditemukan hasil untuk pencarian kamu." : "Nantikan beasiswa dan lomba terbaru."}
+              {search ? "Tidak ditemukan hasil untuk pencarian kamu." : "Nantikan beasiswa, lomba, dan event terbaru."}
             </p>
           </div>
         )}
