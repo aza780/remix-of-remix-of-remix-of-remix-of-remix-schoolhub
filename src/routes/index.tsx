@@ -48,7 +48,7 @@ function HomePage() {
           <h1 className="text-3xl font-extrabold tracking-tight text-foreground md:text-5xl">
             Temukan <span className="text-primary">Beasiswa</span>,{" "}
             <span className="text-emerald">Lomba</span> &{" "}
-            <span className="text-violet-600">Event</span> Terbaik
+            <span className="text-violet">Event</span> Terbaik
           </h1>
           <p className="mt-4 text-muted-foreground">
             Platform terlengkap untuk mencari beasiswa, kompetisi, dan event terbaru bagi pelajar dan mahasiswa Indonesia.
