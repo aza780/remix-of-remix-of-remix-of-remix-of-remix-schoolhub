@@ -6,7 +6,7 @@ import { toast } from "sonner";
 
 interface BookmarkButtonProps {
   postId: string;
-  variant?: "card" | "detail";
+  variant?: "card" | "detail" | "list";
 }
 
 export function BookmarkButton({ postId, variant = "card" }: BookmarkButtonProps) {
@@ -44,6 +44,23 @@ export function BookmarkButton({ postId, variant = "card" }: BookmarkButtonProps
           isBookmarked
             ? "bg-primary text-primary-foreground"
             : "bg-background/70 text-muted-foreground hover:text-primary hover:bg-background/90"
+        }`}
+        aria-label={isBookmarked ? "Hapus bookmark" : "Simpan bookmark"}
+      >
+        <Bookmark className={`h-4 w-4 ${isBookmarked ? "fill-current" : ""}`} />
+      </button>
+    );
+  }
+
+  if (variant === "list") {
+    return (
+      <button
+        onClick={handleClick}
+        disabled={isPending}
+        className={`shrink-0 rounded-full p-2 transition-all ${
+          isBookmarked
+            ? "text-primary"
+            : "text-muted-foreground hover:text-primary hover:bg-secondary"
         }`}
         aria-label={isBookmarked ? "Hapus bookmark" : "Simpan bookmark"}
       >
