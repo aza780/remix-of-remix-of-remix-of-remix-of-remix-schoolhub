@@ -8,6 +8,8 @@ import { StatusBadge } from "@/components/StatusBadge";
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { ALL_CATEGORIES, CATEGORY_CONFIG, getCategoryConfig, type Category } from "@/lib/getCategoryConfig";
+import { MonthlyListSection } from "@/components/calendar/MonthlyListSection";
+import { getMonthLabelID } from "@/lib/formatDate";
 
 export const Route = createFileRoute("/calendar")({
   head: () => ({
