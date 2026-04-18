@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useState, useMemo } from "react";
-import { Search, GraduationCap, Trophy, X } from "lucide-react";
+import { Search, Sparkles, X } from "lucide-react";
 import { fetchPublishedPosts } from "@/lib/supabase-queries";
 import { Navbar } from "@/components/Navbar";
 import { PostCard } from "@/components/PostCard";
