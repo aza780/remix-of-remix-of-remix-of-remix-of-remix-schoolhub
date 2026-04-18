@@ -249,9 +249,7 @@ function CalendarPage() {
                         <button
                           key={`${ev.id}-${ev.eventType}-${idx}`}
                           onClick={(e) => { e.stopPropagation(); setSelectedEvent(ev); }}
-                          className={`h-2 w-2 rounded-full ${
-                            ev.category === "scholarship" ? "bg-blue-500" : "bg-emerald-500"
-                          }`}
+                          className={`h-2 w-2 rounded-full ${getCategoryConfig(ev.category).dotClass}`}
                           aria-label={ev.title}
                         />
                       ))}
@@ -266,11 +264,7 @@ function CalendarPage() {
                         <button
                           key={`${ev.id}-${ev.eventType}-${idx}`}
                           onClick={() => setSelectedEvent(ev)}
-                          className={`w-full truncate rounded px-1 py-0.5 text-left text-[10px] font-medium leading-tight md:text-xs ${
-                            ev.category === "scholarship"
-                              ? "bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300"
-                              : "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300"
-                          }`}
+                          className={`w-full truncate rounded px-1 py-0.5 text-left text-[10px] font-medium leading-tight md:text-xs ${getCategoryConfig(ev.category).calendarPillClass}`}
                         >
                           ● {ev.title.length > 18 ? ev.title.slice(0, 18) + "…" : ev.title}
                           <span className="ml-0.5 opacity-60">({EVENT_TYPE_LABELS[ev.eventType]})</span>
@@ -289,9 +283,13 @@ function CalendarPage() {
 
         {/* Desktop legend */}
         {!isLoading && !isError && (
-          <div className="mt-4 hidden items-center gap-4 text-xs text-muted-foreground sm:flex">
-            <span className="flex items-center gap-1"><span className="inline-block h-2.5 w-2.5 rounded-full bg-blue-500" /> Beasiswa</span>
-            <span className="flex items-center gap-1"><span className="inline-block h-2.5 w-2.5 rounded-full bg-emerald-500" /> Lomba</span>
+          <div className="mt-4 hidden flex-wrap items-center gap-4 text-xs text-muted-foreground sm:flex">
+            {ALL_CATEGORIES.map((cat) => (
+              <span key={cat} className="flex items-center gap-1">
+                <span className={`inline-block h-2.5 w-2.5 rounded-full ${CATEGORY_CONFIG[cat].dotClass}`} />
+                {CATEGORY_CONFIG[cat].label}
+              </span>
+            ))}
           </div>
         )}
 
