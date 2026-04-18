@@ -46,17 +46,18 @@ function HomePage() {
       <section className="border-b bg-card px-4 py-12 text-center md:py-20">
         <div className="mx-auto max-w-2xl">
           <h1 className="text-3xl font-extrabold tracking-tight text-foreground md:text-5xl">
-            Temukan <span className="text-primary">Beasiswa</span> &{" "}
-            <span className="text-emerald">Lomba</span> Terbaik
+            Temukan <span className="text-primary">Beasiswa</span>,{" "}
+            <span className="text-emerald">Lomba</span> &{" "}
+            <span className="text-violet-600">Event</span> Terbaik
           </h1>
           <p className="mt-4 text-muted-foreground">
-            Platform terlengkap untuk mencari beasiswa dan kompetisi terbaru bagi pelajar dan mahasiswa Indonesia.
+            Platform terlengkap untuk mencari beasiswa, kompetisi, dan event terbaru bagi pelajar dan mahasiswa Indonesia.
           </p>
           <div className="relative mx-auto mt-8 max-w-lg">
             <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
             <input
               type="text"
-              placeholder="Cari beasiswa atau lomba..."
+              placeholder="Cari beasiswa, lomba, atau event..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="w-full rounded-full border bg-background py-3 pl-12 pr-10 text-sm shadow-sm outline-none ring-1 ring-transparent transition-all focus:ring-2 focus:ring-primary"
