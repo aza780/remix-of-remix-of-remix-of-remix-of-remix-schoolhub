@@ -47,6 +47,8 @@
   --color-sidebar-ring: var(--sidebar-ring);
   --color-emerald: var(--emerald);
   --color-emerald-foreground: var(--emerald-foreground);
+  --color-violet: var(--violet);
+  --color-violet-foreground: var(--violet-foreground);
   --color-deadline-green: var(--deadline-green);
   --color-deadline-green-foreground: var(--deadline-green-foreground);
   --color-deadline-yellow: var(--deadline-yellow);
@@ -95,6 +97,8 @@
   /* Custom semantic colors */
   --emerald: oklch(0.60 0.17 160);
   --emerald-foreground: oklch(0.98 0.005 160);
+  --violet: oklch(0.55 0.20 295);
+  --violet-foreground: oklch(0.98 0.005 295);
   --deadline-green: oklch(0.92 0.05 155);
   --deadline-green-foreground: oklch(0.35 0.10 155);
   --deadline-yellow: oklch(0.92 0.07 90);

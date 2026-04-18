@@ -7,19 +7,20 @@ import { getPostStatus } from "@/lib/getPostStatus";
 import { StatusBadge } from "@/components/StatusBadge";
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { ALL_CATEGORIES, CATEGORY_CONFIG, getCategoryConfig, type Category } from "@/lib/getCategoryConfig";
 
 export const Route = createFileRoute("/calendar")({
   head: () => ({
     meta: [
       { title: "Kalender — Agenda Prestasi" },
-      { name: "description", content: "Kalender deadline beasiswa dan lomba." },
+      { name: "description", content: "Kalender deadline beasiswa, lomba, dan event." },
     ],
   }),
   component: CalendarPage,
 });
 
 type EventType = "open" | "deadline" | "announcement";
-type CategoryFilter = "scholarship" | "competition";
+type CategoryFilter = Category;
 
 interface CalendarEvent {
   id: string;
@@ -52,7 +53,7 @@ function CalendarPage() {
   const [year, setYear] = useState(now.getFullYear());
   const [month, setMonth] = useState(now.getMonth() + 1);
   const [filterOpen, setFilterOpen] = useState(false);
-  const [categoryFilters, setCategoryFilters] = useState<Set<CategoryFilter>>(new Set(["scholarship", "competition"]));
+  const [categoryFilters, setCategoryFilters] = useState<Set<CategoryFilter>>(new Set(ALL_CATEGORIES));
   const [eventTypeFilters, setEventTypeFilters] = useState<Set<EventType>>(new Set(["open", "deadline", "announcement"]));
   const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
   const isMobile = useIsMobile(); // < 768px
@@ -157,10 +158,10 @@ function CalendarPage() {
             {filterOpen && (
               <div className="absolute right-0 top-full z-40 mt-2 w-52 rounded-lg border bg-card p-3 shadow-lg">
                 <p className="mb-2 text-xs font-semibold text-muted-foreground">Kategori</p>
-                {([["scholarship", "Beasiswa"], ["competition", "Lomba"]] as const).map(([key, label]) => (
+                {ALL_CATEGORIES.map((key) => (
                   <label key={key} className="flex cursor-pointer items-center gap-2 rounded px-2 py-1.5 text-sm hover:bg-secondary">
                     <input type="checkbox" checked={categoryFilters.has(key)} onChange={() => toggleCategoryFilter(key)} className="accent-primary" />
-                    {label}
+                    {CATEGORY_CONFIG[key].label}
                   </label>
                 ))}
                 <hr className="my-2" />
@@ -178,9 +179,13 @@ function CalendarPage() {
 
         {/* Legend — below header on mobile, below grid on desktop */}
         {!isLoading && !isError && (
-          <div className="mb-3 flex items-center gap-4 px-1 text-xs text-muted-foreground sm:hidden">
-            <span className="flex items-center gap-1"><span className="inline-block h-2 w-2 rounded-full bg-blue-500" /> Beasiswa</span>
-            <span className="flex items-center gap-1"><span className="inline-block h-2 w-2 rounded-full bg-emerald-500" /> Lomba</span>
+          <div className="mb-3 flex flex-wrap items-center gap-x-4 gap-y-1 px-1 text-xs text-muted-foreground sm:hidden">
+            {ALL_CATEGORIES.map((cat) => (
+              <span key={cat} className="flex items-center gap-1">
+                <span className={`inline-block h-2 w-2 rounded-full ${CATEGORY_CONFIG[cat].dotClass}`} />
+                {CATEGORY_CONFIG[cat].label}
+              </span>
+            ))}
           </div>
         )}
 
@@ -244,9 +249,7 @@ function CalendarPage() {
                         <button
                           key={`${ev.id}-${ev.eventType}-${idx}`}
                           onClick={(e) => { e.stopPropagation(); setSelectedEvent(ev); }}
-                          className={`h-2 w-2 rounded-full ${
-                            ev.category === "scholarship" ? "bg-blue-500" : "bg-emerald-500"
-                          }`}
+                          className={`h-2 w-2 rounded-full ${getCategoryConfig(ev.category).dotClass}`}
                           aria-label={ev.title}
                         />
                       ))}
@@ -261,11 +264,7 @@ function CalendarPage() {
                         <button
                           key={`${ev.id}-${ev.eventType}-${idx}`}
                           onClick={() => setSelectedEvent(ev)}
-                          className={`w-full truncate rounded px-1 py-0.5 text-left text-[10px] font-medium leading-tight md:text-xs ${
-                            ev.category === "scholarship"
-                              ? "bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300"
-                              : "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300"
-                          }`}
+                          className={`w-full truncate rounded px-1 py-0.5 text-left text-[10px] font-medium leading-tight md:text-xs ${getCategoryConfig(ev.category).calendarPillClass}`}
                         >
                           ● {ev.title.length > 18 ? ev.title.slice(0, 18) + "…" : ev.title}
                           <span className="ml-0.5 opacity-60">({EVENT_TYPE_LABELS[ev.eventType]})</span>
@@ -284,9 +283,13 @@ function CalendarPage() {
 
         {/* Desktop legend */}
         {!isLoading && !isError && (
-          <div className="mt-4 hidden items-center gap-4 text-xs text-muted-foreground sm:flex">
-            <span className="flex items-center gap-1"><span className="inline-block h-2.5 w-2.5 rounded-full bg-blue-500" /> Beasiswa</span>
-            <span className="flex items-center gap-1"><span className="inline-block h-2.5 w-2.5 rounded-full bg-emerald-500" /> Lomba</span>
+          <div className="mt-4 hidden flex-wrap items-center gap-4 text-xs text-muted-foreground sm:flex">
+            {ALL_CATEGORIES.map((cat) => (
+              <span key={cat} className="flex items-center gap-1">
+                <span className={`inline-block h-2.5 w-2.5 rounded-full ${CATEGORY_CONFIG[cat].dotClass}`} />
+                {CATEGORY_CONFIG[cat].label}
+              </span>
+            ))}
           </div>
         )}
 
@@ -316,14 +319,8 @@ function CalendarPage() {
             </div>
             <div className="px-5 pb-6">
               <div className="mb-3 flex flex-wrap items-center gap-2">
-                <span
-                  className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${
-                    selectedEvent.category === "scholarship"
-                      ? "bg-blue-100 text-blue-800"
-                      : "bg-emerald-100 text-emerald-800"
-                  }`}
-                >
-                  {selectedEvent.category === "scholarship" ? "Beasiswa" : "Lomba"}
+                <span className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${getCategoryConfig(selectedEvent.category).badgeClass}`}>
+                  {getCategoryConfig(selectedEvent.category).label}
                 </span>
                 <StatusBadge status={getPostStatus(selectedEvent)} />
               </div>
@@ -363,14 +360,8 @@ function CalendarPage() {
             >
               <div className="mb-4 flex items-start justify-between">
                 <div className="flex flex-wrap items-center gap-2">
-                  <span
-                    className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${
-                      selectedEvent.category === "scholarship"
-                        ? "bg-blue-100 text-blue-800"
-                        : "bg-emerald-100 text-emerald-800"
-                    }`}
-                  >
-                    {selectedEvent.category === "scholarship" ? "Beasiswa" : "Lomba"}
+                  <span className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${getCategoryConfig(selectedEvent.category).badgeClass}`}>
+                    {getCategoryConfig(selectedEvent.category).label}
                   </span>
                   <StatusBadge status={getPostStatus(selectedEvent)} />
                 </div>

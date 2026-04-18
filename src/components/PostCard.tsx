@@ -3,6 +3,7 @@ import { Calendar } from "lucide-react";
 import type { Post } from "@/lib/supabase-queries";
 import { getDeadlineStatus, formatDeadline } from "@/lib/helpers";
 import { getPostStatus } from "@/lib/getPostStatus";
+import { getCategoryConfig } from "@/lib/getCategoryConfig";
 import { StatusBadge } from "@/components/StatusBadge";
 import { BookmarkButton } from "@/components/BookmarkButton";
 
@@ -16,6 +17,7 @@ const deadlineClasses: Record<string, string> = {
 export function PostCard({ post }: { post: Post }) {
   const deadlineStatus = getDeadlineStatus(post.deadline);
   const postStatus = getPostStatus(post);
+  const categoryConfig = getCategoryConfig(post.category);
 
   return (
     <Link
@@ -38,12 +40,8 @@ export function PostCard({ post }: { post: Post }) {
       </div>
       <div className="flex flex-1 flex-col gap-2 p-4">
         <div className="flex items-center gap-2">
-          <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${
-            post.category === "scholarship"
-              ? "bg-primary/10 text-primary"
-              : "bg-emerald/10 text-emerald"
-          }`}>
-            {post.category === "scholarship" ? "Beasiswa" : "Lomba"}
+          <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${categoryConfig.pillClass}`}>
+            {categoryConfig.label}
           </span>
           {post.deadline && (
             <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${deadlineClasses[deadlineStatus]}`}>
