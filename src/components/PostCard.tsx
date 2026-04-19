@@ -81,9 +81,9 @@ export function PostCard({ post }: { post: Post }) {
         )}
         {hasAnyDate && (
           <div className="mt-2 space-y-1.5 border-t pt-3">
-            <DateRow icon={Calendar} label="Buka" date={post.open_date} />
-            <DateRow icon={Clock} label="Tutup" date={post.deadline} isDeadline />
-            <DateRow icon={Megaphone} label="Pengumuman" date={post.announcement_date} />
+            <DateRow icon={Calendar} label="Buka" date={post.open_date} tone="open" />
+            <DateRow icon={Clock} label="Tutup" date={post.deadline} tone="deadline" />
+            <DateRow icon={Megaphone} label="Pengumuman" date={post.announcement_date} tone="announcement" />
           </div>
         )}
         <span className="mt-auto pt-2 text-sm font-medium text-primary">
