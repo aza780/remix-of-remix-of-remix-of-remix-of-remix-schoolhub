@@ -1,23 +1,44 @@
 import { Link } from "@tanstack/react-router";
-import { Calendar } from "lucide-react";
+import { Calendar, Clock, Megaphone } from "lucide-react";
 import type { Post } from "@/lib/supabase-queries";
-import { getDeadlineStatus, formatDeadline } from "@/lib/helpers";
 import { getPostStatus } from "@/lib/getPostStatus";
 import { getCategoryConfig } from "@/lib/getCategoryConfig";
+import { formatDateID } from "@/lib/formatDate";
 import { StatusBadge } from "@/components/StatusBadge";
 import { BookmarkButton } from "@/components/BookmarkButton";
 
-const deadlineClasses: Record<string, string> = {
-  green: "bg-deadline-green text-deadline-green-foreground",
-  yellow: "bg-deadline-yellow text-deadline-yellow-foreground",
-  red: "bg-deadline-red text-deadline-red-foreground",
-  gray: "bg-deadline-gray text-deadline-gray-foreground",
-};
+function DateRow({
+  icon: Icon,
+  label,
+  date,
+  isDeadline = false,
+}: {
+  icon: React.ElementType;
+  label: string;
+  date: string | null;
+  isDeadline?: boolean;
+}) {
+  if (!date) return null;
+
+  const iconClass = isDeadline ? "text-destructive" : "text-muted-foreground";
+  const labelClass = isDeadline ? "text-destructive" : "text-muted-foreground";
+  const valueClass = isDeadline
+    ? "text-destructive font-semibold"
+    : "text-foreground font-medium";
+
+  return (
+    <div className="flex items-center gap-2 text-xs">
+      <Icon className={`h-3.5 w-3.5 shrink-0 ${iconClass}`} />
+      <span className={`w-20 shrink-0 ${labelClass}`}>{label}</span>
+      <span className={valueClass}>{formatDateID(date)}</span>
+    </div>
+  );
+}
 
 export function PostCard({ post }: { post: Post }) {
-  const deadlineStatus = getDeadlineStatus(post.deadline);
   const postStatus = getPostStatus(post);
   const categoryConfig = getCategoryConfig(post.category);
+  const hasAnyDate = post.open_date || post.deadline || post.announcement_date;
 
   return (
     <Link
@@ -43,17 +64,19 @@ export function PostCard({ post }: { post: Post }) {
           <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${categoryConfig.pillClass}`}>
             {categoryConfig.label}
           </span>
-          {post.deadline && (
-            <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${deadlineClasses[deadlineStatus]}`}>
-              {formatDeadline(post.deadline)}
-            </span>
-          )}
         </div>
         <h3 className="line-clamp-2 text-base font-semibold text-card-foreground group-hover:text-primary transition-colors">
           {post.title}
         </h3>
         {post.description && (
           <p className="line-clamp-3 text-sm text-muted-foreground">{post.description}</p>
+        )}
+        {hasAnyDate && (
+          <div className="mt-2 space-y-1.5 border-t pt-3">
+            <DateRow icon={Calendar} label="Buka" date={post.open_date} />
+            <DateRow icon={Clock} label="Tutup" date={post.deadline} isDeadline />
+            <DateRow icon={Megaphone} label="Pengumuman" date={post.announcement_date} />
+          </div>
         )}
         <span className="mt-auto pt-2 text-sm font-medium text-primary">
           Lihat Detail →
