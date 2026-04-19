@@ -1,5 +1,5 @@
 import { Link, useLocation, useNavigate } from "@tanstack/react-router";
-import { Home, GraduationCap, Trophy, Zap, Calendar, Menu, X, LogIn, LogOut, LayoutDashboard, User } from "lucide-react";
+import { Home, GraduationCap, Trophy, Zap, Calendar, Menu, X, LogIn, LogOut, LayoutDashboard, User, Lock } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { useAuth } from "@/hooks/use-auth";
 import { useUserRole } from "@/hooks/useUserRole";
