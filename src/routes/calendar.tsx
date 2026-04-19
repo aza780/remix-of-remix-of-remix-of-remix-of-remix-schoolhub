@@ -19,11 +19,11 @@ export const Route = createFileRoute("/calendar")({
       { name: "description", content: "Kalender deadline beasiswa, lomba, dan event." },
     ],
   }),
-  beforeLoad: async ({ location }) => {
+  beforeLoad: async () => {
     if (typeof window === "undefined") return;
     const { data: { session } } = await supabase.auth.getSession();
     if (!session) {
-      throw redirect({ to: "/login", search: { redirect: location.href } });
+      throw redirect({ to: "/login" });
     }
   },
   component: CalendarPage,
