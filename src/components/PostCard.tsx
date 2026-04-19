@@ -7,29 +7,37 @@ import { formatDateID } from "@/lib/formatDate";
 import { StatusBadge } from "@/components/StatusBadge";
 import { BookmarkButton } from "@/components/BookmarkButton";
 
+type DateTone = "open" | "deadline" | "announcement";
+
 function DateRow({
   icon: Icon,
   label,
   date,
-  isDeadline = false,
+  tone = "open",
 }: {
   icon: React.ElementType;
   label: string;
   date: string | null;
-  isDeadline?: boolean;
+  tone?: DateTone;
 }) {
   if (!date) return null;
 
-  const iconClass = isDeadline ? "text-destructive" : "text-muted-foreground";
-  const labelClass = isDeadline ? "text-destructive" : "text-muted-foreground";
-  const valueClass = isDeadline
-    ? "text-destructive font-semibold"
-    : "text-foreground font-medium";
+  const toneClass =
+    tone === "deadline"
+      ? "text-red-600 dark:text-red-400"
+      : tone === "announcement"
+        ? "text-emerald-600 dark:text-emerald-400"
+        : "text-blue-600 dark:text-blue-400";
+
+  const valueClass =
+    tone === "deadline"
+      ? "text-red-600 dark:text-red-400 font-semibold"
+      : "text-foreground font-medium";
 
   return (
     <div className="flex items-center gap-2 text-xs">
-      <Icon className={`h-3.5 w-3.5 shrink-0 ${iconClass}`} />
-      <span className={`w-20 shrink-0 ${labelClass}`}>{label}</span>
+      <Icon className={`h-3.5 w-3.5 shrink-0 ${toneClass}`} />
+      <span className={`w-20 shrink-0 ${toneClass}`}>{label}</span>
       <span className={valueClass}>{formatDateID(date)}</span>
     </div>
   );
