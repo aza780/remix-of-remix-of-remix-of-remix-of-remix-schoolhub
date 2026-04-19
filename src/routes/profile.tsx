@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { User, Bookmark } from "lucide-react";
+import { User, Bookmark, Mail, ExternalLink } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { useAuth } from "@/hooks/use-auth";
 import { useBookmarkedPosts } from "@/hooks/useBookmarks";
