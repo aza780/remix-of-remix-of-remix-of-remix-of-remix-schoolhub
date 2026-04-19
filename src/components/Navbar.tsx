@@ -208,6 +208,7 @@ export function Navbar() {
                 >
                   <Icon className="h-5 w-5" />
                   {link.label}
+                  {!user && <Lock className="ml-auto h-3.5 w-3.5" aria-label="Perlu login" />}
                 </Link>
               );
             }
