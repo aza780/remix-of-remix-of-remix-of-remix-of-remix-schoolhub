@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import { useState, useMemo, useCallback } from "react";
 import { ChevronLeft, ChevronRight, Filter, X, Calendar as CalendarIcon } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
@@ -10,6 +10,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { ALL_CATEGORIES, CATEGORY_CONFIG, getCategoryConfig, type Category } from "@/lib/getCategoryConfig";
 import { MonthlyListSection } from "@/components/calendar/MonthlyListSection";
 import { getMonthLabelID } from "@/lib/formatDate";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/calendar")({
   head: () => ({
@@ -18,6 +19,13 @@ export const Route = createFileRoute("/calendar")({
       { name: "description", content: "Kalender deadline beasiswa, lomba, dan event." },
     ],
   }),
+  beforeLoad: async () => {
+    if (typeof window === "undefined") return;
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) {
+      throw redirect({ to: "/login" });
+    }
+  },
   component: CalendarPage,
 });
 

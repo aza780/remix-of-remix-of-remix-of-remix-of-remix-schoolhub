@@ -1,5 +1,5 @@
 import { Link, useLocation, useNavigate } from "@tanstack/react-router";
-import { Home, GraduationCap, Trophy, Zap, Calendar, Menu, X, LogIn, LogOut, LayoutDashboard, User } from "lucide-react";
+import { Home, GraduationCap, Trophy, Zap, Calendar, Menu, X, LogIn, LogOut, LayoutDashboard, User, Lock } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { useAuth } from "@/hooks/use-auth";
 import { useUserRole } from "@/hooks/useUserRole";
@@ -104,13 +104,14 @@ export function Navbar() {
                   <Link
                     key={link.label}
                     to="/calendar"
-                    className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+                    className={`flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
                       active
                         ? "text-primary border-b-2 border-primary"
                         : "text-muted-foreground hover:text-foreground hover:bg-secondary"
                     }`}
                   >
                     {link.label}
+                    {!user && <Lock className="h-3 w-3" aria-label="Perlu login" />}
                   </Link>
                 );
               }
@@ -207,6 +208,7 @@ export function Navbar() {
                 >
                   <Icon className="h-5 w-5" />
                   {link.label}
+                  {!user && <Lock className="ml-auto h-3.5 w-3.5" aria-label="Perlu login" />}
                 </Link>
               );
             }

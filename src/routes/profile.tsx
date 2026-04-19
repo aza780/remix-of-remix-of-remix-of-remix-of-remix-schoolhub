@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { User, Bookmark } from "lucide-react";
+import { User, Bookmark, Mail, ExternalLink } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { useAuth } from "@/hooks/use-auth";
 import { useBookmarkedPosts } from "@/hooks/useBookmarks";
@@ -108,22 +108,84 @@ function DisimpanTabButton({ active, onClick }: { active: boolean; onClick: () =
 
 function ProfilTab({ email, createdAt }: { email: string; createdAt: string }) {
   return (
-    <div className="rounded-xl border bg-card p-6">
-      <h3 className="mb-4 text-base font-semibold text-foreground">Informasi Akun</h3>
-      <div className="space-y-4">
-        <div className="flex items-center justify-between">
-          <span className="text-sm text-muted-foreground">Email</span>
-          <span className="text-sm font-medium text-foreground">{email}</span>
-        </div>
-        <div className="flex items-center justify-between">
-          <span className="text-sm text-muted-foreground">Bergabung</span>
-          <span className="text-sm font-medium text-foreground">{createdAt}</span>
-        </div>
-        <div className="flex items-center justify-between">
-          <span className="text-sm text-muted-foreground">Status</span>
-          <span className="text-sm font-medium text-foreground">Pengguna Aktif</span>
+    <div className="space-y-6">
+      <div className="rounded-xl border bg-card p-6">
+        <h3 className="mb-4 text-base font-semibold text-foreground">Informasi Akun</h3>
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <span className="text-sm text-muted-foreground">Email</span>
+            <span className="text-sm font-medium text-foreground">{email}</span>
+          </div>
+          <div className="flex items-center justify-between">
+            <span className="text-sm text-muted-foreground">Bergabung</span>
+            <span className="text-sm font-medium text-foreground">{createdAt}</span>
+          </div>
+          <div className="flex items-center justify-between">
+            <span className="text-sm text-muted-foreground">Status</span>
+            <span className="text-sm font-medium text-foreground">Pengguna Aktif</span>
+          </div>
         </div>
       </div>
+
+      <ContactCard />
+    </div>
+  );
+}
+
+function ContactCard() {
+  return (
+    <div className="rounded-xl border bg-card p-6">
+      <h3 className="mb-4 text-base font-semibold text-foreground">Hubungi Kami</h3>
+
+      <div className="space-y-3">
+        {/* Instagram */}
+        <a
+          href="https://instagram.com/agendaprestasi"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group flex items-center gap-3 rounded-lg border border-border p-3 transition-all duration-150 hover:border-pink-300 hover:bg-pink-50 dark:hover:bg-pink-950/20"
+        >
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400 text-white">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+            </svg>
+          </div>
+
+          <div className="min-w-0 flex-1">
+            <p className="text-sm font-medium text-foreground">Instagram</p>
+            <p className="truncate text-xs text-muted-foreground group-hover:text-pink-600 dark:group-hover:text-pink-400">
+              @agendaprestasi
+            </p>
+          </div>
+
+          <ExternalLink className="h-4 w-4 shrink-0 text-muted-foreground/50 group-hover:text-pink-500" />
+        </a>
+
+        {/* Email */}
+        <a
+          href="mailto:agendaprestasi.team@gmail.com"
+          className="group flex items-center gap-3 rounded-lg border border-border p-3 transition-all duration-150 hover:border-primary/40 hover:bg-primary/5"
+        >
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+            <Mail className="h-5 w-5" />
+          </div>
+
+          <div className="min-w-0 flex-1">
+            <p className="text-sm font-medium text-foreground">Email</p>
+            <p className="truncate text-xs text-muted-foreground group-hover:text-primary">
+              agendaprestasi.team@gmail.com
+            </p>
+          </div>
+
+          <ExternalLink className="h-4 w-4 shrink-0 text-muted-foreground/50 group-hover:text-primary" />
+        </a>
+      </div>
+
+      <p className="mt-4 text-xs text-muted-foreground">
+        Ada pertanyaan atau saran? Jangan ragu untuk menghubungi kami.
+      </p>
     </div>
   );
 }
