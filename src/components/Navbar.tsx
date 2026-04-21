@@ -47,6 +47,7 @@ export function Navbar() {
 
   const isLinkActive = (link: typeof NAV_LINKS[number]) => {
     if (link.to === "/calendar") return location.pathname === "/calendar";
+    if (link.to === "/tryout") return location.pathname.startsWith("/tryout");
     if ("matchParam" in link && link.matchParam) {
       return location.pathname === "/" && location.searchStr?.includes(`category=${link.matchParam}`);
     }
