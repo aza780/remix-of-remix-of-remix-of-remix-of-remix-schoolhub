@@ -112,6 +112,322 @@ export type Database = {
         }
         Relationships: []
       }
+      questions: {
+        Row: {
+          correct_answer: string
+          created_at: string
+          created_by: string | null
+          difficulty: string | null
+          explanation: string | null
+          explanation_image_url: string | null
+          id: string
+          image_url: string | null
+          option_a: string
+          option_b: string
+          option_c: string
+          option_d: string
+          option_e: string
+          question_text: string
+          subject_id: string
+          updated_at: string
+        }
+        Insert: {
+          correct_answer: string
+          created_at?: string
+          created_by?: string | null
+          difficulty?: string | null
+          explanation?: string | null
+          explanation_image_url?: string | null
+          id?: string
+          image_url?: string | null
+          option_a: string
+          option_b: string
+          option_c: string
+          option_d: string
+          option_e: string
+          question_text: string
+          subject_id: string
+          updated_at?: string
+        }
+        Update: {
+          correct_answer?: string
+          created_at?: string
+          created_by?: string | null
+          difficulty?: string | null
+          explanation?: string | null
+          explanation_image_url?: string | null
+          id?: string
+          image_url?: string | null
+          option_a?: string
+          option_b?: string
+          option_c?: string
+          option_d?: string
+          option_e?: string
+          question_text?: string
+          subject_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "questions_subject_id_fkey"
+            columns: ["subject_id"]
+            isOneToOne: false
+            referencedRelation: "subjects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      subjects: {
+        Row: {
+          code: string
+          created_at: string
+          duration_minutes: number
+          id: string
+          name: string
+          order_index: number
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          duration_minutes?: number
+          id?: string
+          name: string
+          order_index: number
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          duration_minutes?: number
+          id?: string
+          name?: string
+          order_index?: number
+        }
+        Relationships: []
+      }
+      tryout_answers: {
+        Row: {
+          answered_at: string
+          id: string
+          is_correct: boolean | null
+          question_id: string
+          selected_answer: string | null
+          session_id: string
+          subject_id: string
+        }
+        Insert: {
+          answered_at?: string
+          id?: string
+          is_correct?: boolean | null
+          question_id: string
+          selected_answer?: string | null
+          session_id: string
+          subject_id: string
+        }
+        Update: {
+          answered_at?: string
+          id?: string
+          is_correct?: boolean | null
+          question_id?: string
+          selected_answer?: string | null
+          session_id?: string
+          subject_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tryout_answers_question_id_fkey"
+            columns: ["question_id"]
+            isOneToOne: false
+            referencedRelation: "questions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tryout_answers_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "tryout_sessions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tryout_answers_subject_id_fkey"
+            columns: ["subject_id"]
+            isOneToOne: false
+            referencedRelation: "subjects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tryout_event_questions: {
+        Row: {
+          event_id: string
+          id: string
+          order_index: number
+          question_id: string
+          subject_id: string
+        }
+        Insert: {
+          event_id: string
+          id?: string
+          order_index?: number
+          question_id: string
+          subject_id: string
+        }
+        Update: {
+          event_id?: string
+          id?: string
+          order_index?: number
+          question_id?: string
+          subject_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tryout_event_questions_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "tryout_events"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tryout_event_questions_question_id_fkey"
+            columns: ["question_id"]
+            isOneToOne: false
+            referencedRelation: "questions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tryout_event_questions_subject_id_fkey"
+            columns: ["subject_id"]
+            isOneToOne: false
+            referencedRelation: "subjects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tryout_events: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          description: string | null
+          end_date: string
+          id: string
+          start_date: string
+          status: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          end_date: string
+          id?: string
+          start_date: string
+          status?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          end_date?: string
+          id?: string
+          start_date?: string
+          status?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      tryout_sessions: {
+        Row: {
+          current_subject_id: string | null
+          event_id: string
+          id: string
+          started_at: string
+          status: string | null
+          submitted_at: string | null
+          total_score: number | null
+          user_id: string
+        }
+        Insert: {
+          current_subject_id?: string | null
+          event_id: string
+          id?: string
+          started_at?: string
+          status?: string | null
+          submitted_at?: string | null
+          total_score?: number | null
+          user_id: string
+        }
+        Update: {
+          current_subject_id?: string | null
+          event_id?: string
+          id?: string
+          started_at?: string
+          status?: string | null
+          submitted_at?: string | null
+          total_score?: number | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tryout_sessions_current_subject_id_fkey"
+            columns: ["current_subject_id"]
+            isOneToOne: false
+            referencedRelation: "subjects"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tryout_sessions_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "tryout_events"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tryout_subject_timers: {
+        Row: {
+          expires_at: string
+          id: string
+          session_id: string
+          started_at: string
+          subject_id: string
+          submitted_at: string | null
+        }
+        Insert: {
+          expires_at: string
+          id?: string
+          session_id: string
+          started_at?: string
+          subject_id: string
+          submitted_at?: string | null
+        }
+        Update: {
+          expires_at?: string
+          id?: string
+          session_id?: string
+          started_at?: string
+          subject_id?: string
+          submitted_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tryout_subject_timers_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "tryout_sessions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tryout_subject_timers_subject_id_fkey"
+            columns: ["subject_id"]
+            isOneToOne: false
+            referencedRelation: "subjects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_roles: {
         Row: {
           created_at: string | null
