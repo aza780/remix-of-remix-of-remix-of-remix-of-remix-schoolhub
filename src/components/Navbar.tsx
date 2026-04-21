@@ -1,5 +1,5 @@
 import { Link, useLocation, useNavigate } from "@tanstack/react-router";
-import { Home, GraduationCap, Trophy, Zap, Calendar, Menu, X, LogIn, LogOut, LayoutDashboard, User, Lock } from "lucide-react";
+import { Home, GraduationCap, Trophy, Zap, Calendar, Menu, X, LogIn, LogOut, LayoutDashboard, User, Lock, FileText } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { useAuth } from "@/hooks/use-auth";
 import { useUserRole } from "@/hooks/useUserRole";
@@ -14,6 +14,7 @@ const NAV_LINKS = [
   { to: "/?category=scholarship", label: "Beasiswa", icon: GraduationCap, matchParam: "scholarship" },
   { to: "/?category=competition", label: "Lomba", icon: Trophy, matchParam: "competition" },
   { to: "/?category=event", label: "Event", icon: Zap, matchParam: "event" },
+  { to: "/tryout", label: "Tryout SNBT", icon: FileText, matchExact: false },
   { to: "/calendar", label: "Kalender", icon: Calendar, matchExact: false },
 ] as const;
 
