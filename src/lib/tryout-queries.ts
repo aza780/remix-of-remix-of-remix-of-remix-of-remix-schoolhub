@@ -85,9 +85,8 @@ export async function fetchEventQuestionsForSubject(
     .eq("subject_id", subjectId)
     .order("order_index", { ascending: true });
   if (error) throw error;
-  return ((data ?? [])
-    .map((row: { question: Question | null }) => row.question)
-    .filter(Boolean) as Question[]);
+  const rows = (data ?? []) as unknown as Array<{ question: Question | null }>;
+  return rows.map((row) => row.question).filter((q): q is Question => !!q);
 }
 
 // Full questions (including correct_answer + explanation) — only call AFTER submit
@@ -102,11 +101,12 @@ export async function fetchEventQuestionsFull(
     .eq("event_id", eventId)
     .order("order_index", { ascending: true });
   if (error) throw error;
-  return ((data ?? [])
-    .map((row: { question: (Question & { correct_answer: AnswerOption }) | null }) =>
-      row.question
-    )
-    .filter(Boolean) as Array<Question & { correct_answer: AnswerOption }>);
+  const rows = (data ?? []) as unknown as Array<{
+    question: (Question & { correct_answer: AnswerOption }) | null;
+  }>;
+  return rows
+    .map((row) => row.question)
+    .filter((q): q is Question & { correct_answer: AnswerOption } => !!q);
 }
 
 // ────────────────────────────────────────────────────────────────────────────

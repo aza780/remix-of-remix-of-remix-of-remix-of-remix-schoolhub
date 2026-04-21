@@ -14,10 +14,14 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as CalendarRouteImport } from './routes/calendar'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as TryoutIndexRouteImport } from './routes/tryout.index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as TryoutEventIdRouteImport } from './routes/tryout.$eventId'
 import { Route as PostsSlugRouteImport } from './routes/posts.$slug'
 import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
+import { Route as TryoutEventIdExamRouteImport } from './routes/tryout.$eventId.exam'
 import { Route as AdminPostsNewRouteImport } from './routes/admin.posts.new'
+import { Route as TryoutEventIdResultSessionIdRouteImport } from './routes/tryout.$eventId.result.$sessionId'
 import { Route as AdminPostsIdEditRouteImport } from './routes/admin.posts.$id.edit'
 
 const ProfileRoute = ProfileRouteImport.update({
@@ -45,10 +49,20 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TryoutIndexRoute = TryoutIndexRouteImport.update({
+  id: '/tryout/',
+  path: '/tryout/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AdminRoute,
+} as any)
+const TryoutEventIdRoute = TryoutEventIdRouteImport.update({
+  id: '/tryout/$eventId',
+  path: '/tryout/$eventId',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const PostsSlugRoute = PostsSlugRouteImport.update({
   id: '/posts/$slug',
@@ -60,11 +74,22 @@ const AuthCallbackRoute = AuthCallbackRouteImport.update({
   path: '/auth/callback',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TryoutEventIdExamRoute = TryoutEventIdExamRouteImport.update({
+  id: '/exam',
+  path: '/exam',
+  getParentRoute: () => TryoutEventIdRoute,
+} as any)
 const AdminPostsNewRoute = AdminPostsNewRouteImport.update({
   id: '/posts/new',
   path: '/posts/new',
   getParentRoute: () => AdminRoute,
 } as any)
+const TryoutEventIdResultSessionIdRoute =
+  TryoutEventIdResultSessionIdRouteImport.update({
+    id: '/result/$sessionId',
+    path: '/result/$sessionId',
+    getParentRoute: () => TryoutEventIdRoute,
+  } as any)
 const AdminPostsIdEditRoute = AdminPostsIdEditRouteImport.update({
   id: '/posts/$id/edit',
   path: '/posts/$id/edit',
@@ -79,9 +104,13 @@ export interface FileRoutesByFullPath {
   '/profile': typeof ProfileRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/posts/$slug': typeof PostsSlugRoute
+  '/tryout/$eventId': typeof TryoutEventIdRouteWithChildren
   '/admin/': typeof AdminIndexRoute
+  '/tryout/': typeof TryoutIndexRoute
   '/admin/posts/new': typeof AdminPostsNewRoute
+  '/tryout/$eventId/exam': typeof TryoutEventIdExamRoute
   '/admin/posts/$id/edit': typeof AdminPostsIdEditRoute
+  '/tryout/$eventId/result/$sessionId': typeof TryoutEventIdResultSessionIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -90,9 +119,13 @@ export interface FileRoutesByTo {
   '/profile': typeof ProfileRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/posts/$slug': typeof PostsSlugRoute
+  '/tryout/$eventId': typeof TryoutEventIdRouteWithChildren
   '/admin': typeof AdminIndexRoute
+  '/tryout': typeof TryoutIndexRoute
   '/admin/posts/new': typeof AdminPostsNewRoute
+  '/tryout/$eventId/exam': typeof TryoutEventIdExamRoute
   '/admin/posts/$id/edit': typeof AdminPostsIdEditRoute
+  '/tryout/$eventId/result/$sessionId': typeof TryoutEventIdResultSessionIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -103,9 +136,13 @@ export interface FileRoutesById {
   '/profile': typeof ProfileRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/posts/$slug': typeof PostsSlugRoute
+  '/tryout/$eventId': typeof TryoutEventIdRouteWithChildren
   '/admin/': typeof AdminIndexRoute
+  '/tryout/': typeof TryoutIndexRoute
   '/admin/posts/new': typeof AdminPostsNewRoute
+  '/tryout/$eventId/exam': typeof TryoutEventIdExamRoute
   '/admin/posts/$id/edit': typeof AdminPostsIdEditRoute
+  '/tryout/$eventId/result/$sessionId': typeof TryoutEventIdResultSessionIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -117,9 +154,13 @@ export interface FileRouteTypes {
     | '/profile'
     | '/auth/callback'
     | '/posts/$slug'
+    | '/tryout/$eventId'
     | '/admin/'
+    | '/tryout/'
     | '/admin/posts/new'
+    | '/tryout/$eventId/exam'
     | '/admin/posts/$id/edit'
+    | '/tryout/$eventId/result/$sessionId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -128,9 +169,13 @@ export interface FileRouteTypes {
     | '/profile'
     | '/auth/callback'
     | '/posts/$slug'
+    | '/tryout/$eventId'
     | '/admin'
+    | '/tryout'
     | '/admin/posts/new'
+    | '/tryout/$eventId/exam'
     | '/admin/posts/$id/edit'
+    | '/tryout/$eventId/result/$sessionId'
   id:
     | '__root__'
     | '/'
@@ -140,9 +185,13 @@ export interface FileRouteTypes {
     | '/profile'
     | '/auth/callback'
     | '/posts/$slug'
+    | '/tryout/$eventId'
     | '/admin/'
+    | '/tryout/'
     | '/admin/posts/new'
+    | '/tryout/$eventId/exam'
     | '/admin/posts/$id/edit'
+    | '/tryout/$eventId/result/$sessionId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -153,6 +202,8 @@ export interface RootRouteChildren {
   ProfileRoute: typeof ProfileRoute
   AuthCallbackRoute: typeof AuthCallbackRoute
   PostsSlugRoute: typeof PostsSlugRoute
+  TryoutEventIdRoute: typeof TryoutEventIdRouteWithChildren
+  TryoutIndexRoute: typeof TryoutIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -192,12 +243,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/tryout/': {
+      id: '/tryout/'
+      path: '/tryout'
+      fullPath: '/tryout/'
+      preLoaderRoute: typeof TryoutIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/': {
       id: '/admin/'
       path: '/'
       fullPath: '/admin/'
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof AdminRoute
+    }
+    '/tryout/$eventId': {
+      id: '/tryout/$eventId'
+      path: '/tryout/$eventId'
+      fullPath: '/tryout/$eventId'
+      preLoaderRoute: typeof TryoutEventIdRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/posts/$slug': {
       id: '/posts/$slug'
@@ -213,12 +278,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthCallbackRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/tryout/$eventId/exam': {
+      id: '/tryout/$eventId/exam'
+      path: '/exam'
+      fullPath: '/tryout/$eventId/exam'
+      preLoaderRoute: typeof TryoutEventIdExamRouteImport
+      parentRoute: typeof TryoutEventIdRoute
+    }
     '/admin/posts/new': {
       id: '/admin/posts/new'
       path: '/posts/new'
       fullPath: '/admin/posts/new'
       preLoaderRoute: typeof AdminPostsNewRouteImport
       parentRoute: typeof AdminRoute
+    }
+    '/tryout/$eventId/result/$sessionId': {
+      id: '/tryout/$eventId/result/$sessionId'
+      path: '/result/$sessionId'
+      fullPath: '/tryout/$eventId/result/$sessionId'
+      preLoaderRoute: typeof TryoutEventIdResultSessionIdRouteImport
+      parentRoute: typeof TryoutEventIdRoute
     }
     '/admin/posts/$id/edit': {
       id: '/admin/posts/$id/edit'
@@ -244,6 +323,20 @@ const AdminRouteChildren: AdminRouteChildren = {
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
+interface TryoutEventIdRouteChildren {
+  TryoutEventIdExamRoute: typeof TryoutEventIdExamRoute
+  TryoutEventIdResultSessionIdRoute: typeof TryoutEventIdResultSessionIdRoute
+}
+
+const TryoutEventIdRouteChildren: TryoutEventIdRouteChildren = {
+  TryoutEventIdExamRoute: TryoutEventIdExamRoute,
+  TryoutEventIdResultSessionIdRoute: TryoutEventIdResultSessionIdRoute,
+}
+
+const TryoutEventIdRouteWithChildren = TryoutEventIdRoute._addFileChildren(
+  TryoutEventIdRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRouteWithChildren,
@@ -252,6 +345,8 @@ const rootRouteChildren: RootRouteChildren = {
   ProfileRoute: ProfileRoute,
   AuthCallbackRoute: AuthCallbackRoute,
   PostsSlugRoute: PostsSlugRoute,
+  TryoutEventIdRoute: TryoutEventIdRouteWithChildren,
+  TryoutIndexRoute: TryoutIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

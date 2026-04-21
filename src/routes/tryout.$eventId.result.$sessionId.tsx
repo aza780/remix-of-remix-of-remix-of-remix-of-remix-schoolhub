@@ -87,7 +87,7 @@ function TryoutResultPage() {
   }, [ranking, user, sessionId]);
 
   const answersById = useMemo(() => {
-    const map = new Map<string, (typeof answers)[number] | undefined>();
+    const map = new Map<string, NonNullable<typeof answers>[number]>();
     (answers ?? []).forEach((a) => map.set(a.question_id, a));
     return map;
   }, [answers]);
