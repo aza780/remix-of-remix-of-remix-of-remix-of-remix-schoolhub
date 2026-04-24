@@ -19,9 +19,15 @@ import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as TryoutEventIdRouteImport } from './routes/tryout.$eventId'
 import { Route as PostsSlugRouteImport } from './routes/posts.$slug'
 import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
+import { Route as AdminTryoutsIndexRouteImport } from './routes/admin.tryouts.index'
+import { Route as AdminQuestionsIndexRouteImport } from './routes/admin.questions.index'
 import { Route as TryoutEventIdExamRouteImport } from './routes/tryout.$eventId.exam'
+import { Route as AdminTryoutsNewRouteImport } from './routes/admin.tryouts.new'
+import { Route as AdminQuestionsNewRouteImport } from './routes/admin.questions.new'
 import { Route as AdminPostsNewRouteImport } from './routes/admin.posts.new'
 import { Route as TryoutEventIdResultSessionIdRouteImport } from './routes/tryout.$eventId.result.$sessionId'
+import { Route as AdminTryoutsIdEditRouteImport } from './routes/admin.tryouts.$id.edit'
+import { Route as AdminQuestionsIdEditRouteImport } from './routes/admin.questions.$id.edit'
 import { Route as AdminPostsIdEditRouteImport } from './routes/admin.posts.$id.edit'
 
 const ProfileRoute = ProfileRouteImport.update({
@@ -74,10 +80,30 @@ const AuthCallbackRoute = AuthCallbackRouteImport.update({
   path: '/auth/callback',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminTryoutsIndexRoute = AdminTryoutsIndexRouteImport.update({
+  id: '/tryouts/',
+  path: '/tryouts/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminQuestionsIndexRoute = AdminQuestionsIndexRouteImport.update({
+  id: '/questions/',
+  path: '/questions/',
+  getParentRoute: () => AdminRoute,
+} as any)
 const TryoutEventIdExamRoute = TryoutEventIdExamRouteImport.update({
   id: '/exam',
   path: '/exam',
   getParentRoute: () => TryoutEventIdRoute,
+} as any)
+const AdminTryoutsNewRoute = AdminTryoutsNewRouteImport.update({
+  id: '/tryouts/new',
+  path: '/tryouts/new',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminQuestionsNewRoute = AdminQuestionsNewRouteImport.update({
+  id: '/questions/new',
+  path: '/questions/new',
+  getParentRoute: () => AdminRoute,
 } as any)
 const AdminPostsNewRoute = AdminPostsNewRouteImport.update({
   id: '/posts/new',
@@ -90,6 +116,16 @@ const TryoutEventIdResultSessionIdRoute =
     path: '/result/$sessionId',
     getParentRoute: () => TryoutEventIdRoute,
   } as any)
+const AdminTryoutsIdEditRoute = AdminTryoutsIdEditRouteImport.update({
+  id: '/tryouts/$id/edit',
+  path: '/tryouts/$id/edit',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminQuestionsIdEditRoute = AdminQuestionsIdEditRouteImport.update({
+  id: '/questions/$id/edit',
+  path: '/questions/$id/edit',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminPostsIdEditRoute = AdminPostsIdEditRouteImport.update({
   id: '/posts/$id/edit',
   path: '/posts/$id/edit',
@@ -108,8 +144,14 @@ export interface FileRoutesByFullPath {
   '/admin/': typeof AdminIndexRoute
   '/tryout/': typeof TryoutIndexRoute
   '/admin/posts/new': typeof AdminPostsNewRoute
+  '/admin/questions/new': typeof AdminQuestionsNewRoute
+  '/admin/tryouts/new': typeof AdminTryoutsNewRoute
   '/tryout/$eventId/exam': typeof TryoutEventIdExamRoute
+  '/admin/questions/': typeof AdminQuestionsIndexRoute
+  '/admin/tryouts/': typeof AdminTryoutsIndexRoute
   '/admin/posts/$id/edit': typeof AdminPostsIdEditRoute
+  '/admin/questions/$id/edit': typeof AdminQuestionsIdEditRoute
+  '/admin/tryouts/$id/edit': typeof AdminTryoutsIdEditRoute
   '/tryout/$eventId/result/$sessionId': typeof TryoutEventIdResultSessionIdRoute
 }
 export interface FileRoutesByTo {
@@ -123,8 +165,14 @@ export interface FileRoutesByTo {
   '/admin': typeof AdminIndexRoute
   '/tryout': typeof TryoutIndexRoute
   '/admin/posts/new': typeof AdminPostsNewRoute
+  '/admin/questions/new': typeof AdminQuestionsNewRoute
+  '/admin/tryouts/new': typeof AdminTryoutsNewRoute
   '/tryout/$eventId/exam': typeof TryoutEventIdExamRoute
+  '/admin/questions': typeof AdminQuestionsIndexRoute
+  '/admin/tryouts': typeof AdminTryoutsIndexRoute
   '/admin/posts/$id/edit': typeof AdminPostsIdEditRoute
+  '/admin/questions/$id/edit': typeof AdminQuestionsIdEditRoute
+  '/admin/tryouts/$id/edit': typeof AdminTryoutsIdEditRoute
   '/tryout/$eventId/result/$sessionId': typeof TryoutEventIdResultSessionIdRoute
 }
 export interface FileRoutesById {
@@ -140,8 +188,14 @@ export interface FileRoutesById {
   '/admin/': typeof AdminIndexRoute
   '/tryout/': typeof TryoutIndexRoute
   '/admin/posts/new': typeof AdminPostsNewRoute
+  '/admin/questions/new': typeof AdminQuestionsNewRoute
+  '/admin/tryouts/new': typeof AdminTryoutsNewRoute
   '/tryout/$eventId/exam': typeof TryoutEventIdExamRoute
+  '/admin/questions/': typeof AdminQuestionsIndexRoute
+  '/admin/tryouts/': typeof AdminTryoutsIndexRoute
   '/admin/posts/$id/edit': typeof AdminPostsIdEditRoute
+  '/admin/questions/$id/edit': typeof AdminQuestionsIdEditRoute
+  '/admin/tryouts/$id/edit': typeof AdminTryoutsIdEditRoute
   '/tryout/$eventId/result/$sessionId': typeof TryoutEventIdResultSessionIdRoute
 }
 export interface FileRouteTypes {
@@ -158,8 +212,14 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/tryout/'
     | '/admin/posts/new'
+    | '/admin/questions/new'
+    | '/admin/tryouts/new'
     | '/tryout/$eventId/exam'
+    | '/admin/questions/'
+    | '/admin/tryouts/'
     | '/admin/posts/$id/edit'
+    | '/admin/questions/$id/edit'
+    | '/admin/tryouts/$id/edit'
     | '/tryout/$eventId/result/$sessionId'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -173,8 +233,14 @@ export interface FileRouteTypes {
     | '/admin'
     | '/tryout'
     | '/admin/posts/new'
+    | '/admin/questions/new'
+    | '/admin/tryouts/new'
     | '/tryout/$eventId/exam'
+    | '/admin/questions'
+    | '/admin/tryouts'
     | '/admin/posts/$id/edit'
+    | '/admin/questions/$id/edit'
+    | '/admin/tryouts/$id/edit'
     | '/tryout/$eventId/result/$sessionId'
   id:
     | '__root__'
@@ -189,8 +255,14 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/tryout/'
     | '/admin/posts/new'
+    | '/admin/questions/new'
+    | '/admin/tryouts/new'
     | '/tryout/$eventId/exam'
+    | '/admin/questions/'
+    | '/admin/tryouts/'
     | '/admin/posts/$id/edit'
+    | '/admin/questions/$id/edit'
+    | '/admin/tryouts/$id/edit'
     | '/tryout/$eventId/result/$sessionId'
   fileRoutesById: FileRoutesById
 }
@@ -278,12 +350,40 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthCallbackRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/tryouts/': {
+      id: '/admin/tryouts/'
+      path: '/tryouts'
+      fullPath: '/admin/tryouts/'
+      preLoaderRoute: typeof AdminTryoutsIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/questions/': {
+      id: '/admin/questions/'
+      path: '/questions'
+      fullPath: '/admin/questions/'
+      preLoaderRoute: typeof AdminQuestionsIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/tryout/$eventId/exam': {
       id: '/tryout/$eventId/exam'
       path: '/exam'
       fullPath: '/tryout/$eventId/exam'
       preLoaderRoute: typeof TryoutEventIdExamRouteImport
       parentRoute: typeof TryoutEventIdRoute
+    }
+    '/admin/tryouts/new': {
+      id: '/admin/tryouts/new'
+      path: '/tryouts/new'
+      fullPath: '/admin/tryouts/new'
+      preLoaderRoute: typeof AdminTryoutsNewRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/questions/new': {
+      id: '/admin/questions/new'
+      path: '/questions/new'
+      fullPath: '/admin/questions/new'
+      preLoaderRoute: typeof AdminQuestionsNewRouteImport
+      parentRoute: typeof AdminRoute
     }
     '/admin/posts/new': {
       id: '/admin/posts/new'
@@ -299,6 +399,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TryoutEventIdResultSessionIdRouteImport
       parentRoute: typeof TryoutEventIdRoute
     }
+    '/admin/tryouts/$id/edit': {
+      id: '/admin/tryouts/$id/edit'
+      path: '/tryouts/$id/edit'
+      fullPath: '/admin/tryouts/$id/edit'
+      preLoaderRoute: typeof AdminTryoutsIdEditRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/questions/$id/edit': {
+      id: '/admin/questions/$id/edit'
+      path: '/questions/$id/edit'
+      fullPath: '/admin/questions/$id/edit'
+      preLoaderRoute: typeof AdminQuestionsIdEditRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/posts/$id/edit': {
       id: '/admin/posts/$id/edit'
       path: '/posts/$id/edit'
@@ -312,13 +426,25 @@ declare module '@tanstack/react-router' {
 interface AdminRouteChildren {
   AdminIndexRoute: typeof AdminIndexRoute
   AdminPostsNewRoute: typeof AdminPostsNewRoute
+  AdminQuestionsNewRoute: typeof AdminQuestionsNewRoute
+  AdminTryoutsNewRoute: typeof AdminTryoutsNewRoute
+  AdminQuestionsIndexRoute: typeof AdminQuestionsIndexRoute
+  AdminTryoutsIndexRoute: typeof AdminTryoutsIndexRoute
   AdminPostsIdEditRoute: typeof AdminPostsIdEditRoute
+  AdminQuestionsIdEditRoute: typeof AdminQuestionsIdEditRoute
+  AdminTryoutsIdEditRoute: typeof AdminTryoutsIdEditRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminIndexRoute: AdminIndexRoute,
   AdminPostsNewRoute: AdminPostsNewRoute,
+  AdminQuestionsNewRoute: AdminQuestionsNewRoute,
+  AdminTryoutsNewRoute: AdminTryoutsNewRoute,
+  AdminQuestionsIndexRoute: AdminQuestionsIndexRoute,
+  AdminTryoutsIndexRoute: AdminTryoutsIndexRoute,
   AdminPostsIdEditRoute: AdminPostsIdEditRoute,
+  AdminQuestionsIdEditRoute: AdminQuestionsIdEditRoute,
+  AdminTryoutsIdEditRoute: AdminTryoutsIdEditRoute,
 }
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
