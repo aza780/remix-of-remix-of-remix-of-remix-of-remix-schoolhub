@@ -35,7 +35,7 @@ export const Route = createFileRoute("/admin/questions/")({
 });
 
 function QuestionsAdminPage() {
-  const navigate = useNavigate({ from: "/admin/questions" });
+  const navigate = useNavigate();
   const { page, subject, difficulty, search } = Route.useSearch();
   const qc = useQueryClient();
   const [searchInput, setSearchInput] = useState(search);
@@ -74,8 +74,11 @@ function QuestionsAdminPage() {
   const pageSize = 20;
   const totalPages = Math.max(1, Math.ceil(total / pageSize));
 
-  const update = (patch: Partial<typeof Route.types.fullSearchSchema>) =>
-    navigate({ search: (prev) => ({ ...prev, ...patch, page: 1 }) });
+  const update = (patch: Record<string, any>) =>
+    navigate({
+      to: "/admin/questions",
+      search: { page: 1, subject, difficulty, search, ...patch } as any,
+    });
 
   const tryDelete = async (id: string, title: string) => {
     const events = await fetchEventsUsingQuestion(id);
@@ -194,7 +197,7 @@ function QuestionsAdminPage() {
               variant="outline"
               size="sm"
               disabled={page <= 1}
-              onClick={() => navigate({ search: (p) => ({ ...p, page: page - 1 }) })}
+              onClick={() => navigate({ to: "/admin/questions", search: { page: page - 1, subject, difficulty, search } as any })}
             >
               Sebelumnya
             </Button>
@@ -202,7 +205,7 @@ function QuestionsAdminPage() {
               variant="outline"
               size="sm"
               disabled={page >= totalPages}
-              onClick={() => navigate({ search: (p) => ({ ...p, page: page + 1 }) })}
+              onClick={() => navigate({ to: "/admin/questions", search: { page: page + 1, subject, difficulty, search } as any })}
             >
               Selanjutnya
             </Button>
