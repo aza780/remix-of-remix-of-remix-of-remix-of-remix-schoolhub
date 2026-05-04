@@ -1,8 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { Navbar } from "@/components/Navbar";
-import { TryoutEventCard } from "@/components/tryout/TryoutEventCard";
-import { fetchTryoutEvents } from "@/lib/tryout-queries";
+import { Navbar } from "@frontend/components/Navbar";
+import { TryoutEventCard } from "@frontend/components/tryout/TryoutEventCard";
+import { fetchTryoutEvents } from "@backend/queries/tryout";
 import { FileText } from "lucide-react";
 
 export const Route = createFileRoute("/tryout/")({

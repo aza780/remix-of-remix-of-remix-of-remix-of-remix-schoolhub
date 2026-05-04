@@ -1,9 +1,9 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { TryoutEventForm } from "@/components/admin/TryoutEventForm";
-import { createTryoutEvent } from "@/lib/tryout-admin-queries";
-import { useAuth } from "@/hooks/use-auth";
+import { TryoutEventForm } from "@frontend/components/admin/TryoutEventForm";
+import { createTryoutEvent } from "@backend/queries/tryout-admin";
+import { useAuth } from "@frontend/hooks/use-auth";
 
 export const Route = createFileRoute("/admin/tryouts/new")({
   component: NewTryoutEventPage,

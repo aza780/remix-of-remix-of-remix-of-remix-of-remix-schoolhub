@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
-import { useAuth } from "@/hooks/use-auth";
+import { supabase } from "@backend/supabase/client";
+import { useAuth } from "@frontend/hooks/use-auth";
 
 export type UserRole = "super_admin" | "admin" | "public";
 

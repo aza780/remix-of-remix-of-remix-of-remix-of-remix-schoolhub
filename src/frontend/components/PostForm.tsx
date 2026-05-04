@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { slugify } from "@/lib/helpers";
-import { uploadPostImage, type Post, type PostInsert } from "@/lib/supabase-queries";
-import { ALL_CATEGORIES, CATEGORY_CONFIG, type Category } from "@/lib/getCategoryConfig";
+import { Button } from "@frontend/components/ui/button";
+import { Input } from "@frontend/components/ui/input";
+import { Label } from "@frontend/components/ui/label";
+import { Textarea } from "@frontend/components/ui/textarea";
+import { slugify } from "@frontend/lib/helpers";
+import { uploadPostImage, type Post, type PostInsert } from "@backend/queries/posts";
+import { ALL_CATEGORIES, CATEGORY_CONFIG, type Category } from "@frontend/lib/getCategoryConfig";
 import { toast } from "sonner";
 import { Upload } from "lucide-react";
 

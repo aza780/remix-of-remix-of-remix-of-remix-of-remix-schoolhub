@@ -1,4 +1,4 @@
-import type { Subject } from "@/lib/tryout-types";
+import type { Subject } from "@backend/types/tryout";
 import { Check, Lock } from "lucide-react";
 
 export function SubjectNav({

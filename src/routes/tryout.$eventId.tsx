@@ -3,17 +3,17 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { toast } from "sonner";
 import { ArrowLeft, BookOpen, Calendar, Clock, LogIn, Play } from "lucide-react";
-import { Navbar } from "@/components/Navbar";
-import { Button } from "@/components/ui/button";
-import { useAuth } from "@/hooks/use-auth";
+import { Navbar } from "@frontend/components/Navbar";
+import { Button } from "@frontend/components/ui/button";
+import { useAuth } from "@frontend/hooks/use-auth";
 import {
   createSession,
   fetchActiveSession,
   fetchEventSubjectsWithCounts,
   fetchTryoutEvent,
-} from "@/lib/tryout-queries";
-import { getEventStatus } from "@/lib/tryout-types";
-import { formatDateID } from "@/lib/formatDate";
+} from "@backend/queries/tryout";
+import { getEventStatus } from "@backend/types/tryout";
+import { formatDateID } from "@frontend/lib/formatDate";
 
 export const Route = createFileRoute("/tryout/$eventId")({
   head: () => ({

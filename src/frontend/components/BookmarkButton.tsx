@@ -1,7 +1,7 @@
 import { Bookmark } from "lucide-react";
 import { useNavigate } from "@tanstack/react-router";
-import { useAuth } from "@/hooks/use-auth";
-import { useBookmarkedIds, useToggleBookmark } from "@/hooks/useBookmarks";
+import { useAuth } from "@frontend/hooks/use-auth";
+import { useBookmarkedIds, useToggleBookmark } from "@frontend/hooks/useBookmarks";
 import { toast } from "sonner";
 
 interface BookmarkButtonProps {

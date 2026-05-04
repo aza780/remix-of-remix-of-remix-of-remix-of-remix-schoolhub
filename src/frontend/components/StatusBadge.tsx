@@ -1,4 +1,4 @@
-import type { PostStatus } from "@/lib/getPostStatus";
+import type { PostStatus } from "@frontend/lib/getPostStatus";
 
 const config: Record<PostStatus, { label: string; classes: string; dotClass: string }> = {
   active: {

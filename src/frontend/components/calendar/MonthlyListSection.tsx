@@ -1,4 +1,4 @@
-import { getCategoryConfig, type Category } from "@/lib/getCategoryConfig";
+import { getCategoryConfig, type Category } from "@frontend/lib/getCategoryConfig";
 import { MonthlyListItem } from "./MonthlyListItem";
 
 interface MonthlyListPost {

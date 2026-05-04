@@ -1,10 +1,10 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { QuestionForm } from "@/components/admin/QuestionForm";
-import { fetchSubjects } from "@/lib/tryout-queries";
-import { createQuestion } from "@/lib/tryout-admin-queries";
-import { useAuth } from "@/hooks/use-auth";
+import { QuestionForm } from "@frontend/components/admin/QuestionForm";
+import { fetchSubjects } from "@backend/queries/tryout";
+import { createQuestion } from "@backend/queries/tryout-admin";
+import { useAuth } from "@frontend/hooks/use-auth";
 
 export const Route = createFileRoute("/admin/questions/new")({
   component: NewQuestionPage,

@@ -1,16 +1,16 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft, ExternalLink, Calendar } from "lucide-react";
-import { fetchPostBySlug } from "@/lib/supabase-queries";
-import { getDeadlineStatus, formatDeadline } from "@/lib/helpers";
-import { getPostStatus } from "@/lib/getPostStatus";
-import { getCategoryConfig } from "@/lib/getCategoryConfig";
-import { StatusBadge } from "@/components/StatusBadge";
-import { BookmarkButton } from "@/components/BookmarkButton";
-import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Navbar } from "@/components/Navbar";
-import { useAuth } from "@/hooks/use-auth";
+import { fetchPostBySlug } from "@backend/queries/posts";
+import { getDeadlineStatus, formatDeadline } from "@frontend/lib/helpers";
+import { getPostStatus } from "@frontend/lib/getPostStatus";
+import { getCategoryConfig } from "@frontend/lib/getCategoryConfig";
+import { StatusBadge } from "@frontend/components/StatusBadge";
+import { BookmarkButton } from "@frontend/components/BookmarkButton";
+import { Button } from "@frontend/components/ui/button";
+import { Skeleton } from "@frontend/components/ui/skeleton";
+import { Navbar } from "@frontend/components/Navbar";
+import { useAuth } from "@frontend/hooks/use-auth";
 
 export const Route = createFileRoute("/posts/$slug")({
   component: PostDetailPage,

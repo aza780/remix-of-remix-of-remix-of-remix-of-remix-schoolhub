@@ -1,11 +1,11 @@
 import { Link } from "@tanstack/react-router";
 import { Calendar, Clock, Megaphone } from "lucide-react";
-import type { Post } from "@/lib/supabase-queries";
-import { getPostStatus } from "@/lib/getPostStatus";
-import { getCategoryConfig } from "@/lib/getCategoryConfig";
-import { formatDateID } from "@/lib/formatDate";
-import { StatusBadge } from "@/components/StatusBadge";
-import { BookmarkButton } from "@/components/BookmarkButton";
+import type { Post } from "@backend/queries/posts";
+import { getPostStatus } from "@frontend/lib/getPostStatus";
+import { getCategoryConfig } from "@frontend/lib/getCategoryConfig";
+import { formatDateID } from "@frontend/lib/formatDate";
+import { StatusBadge } from "@frontend/components/StatusBadge";
+import { BookmarkButton } from "@frontend/components/BookmarkButton";
 
 type DateTone = "open" | "deadline" | "announcement";
 

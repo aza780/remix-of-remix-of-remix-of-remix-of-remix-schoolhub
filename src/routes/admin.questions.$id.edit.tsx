@@ -1,9 +1,9 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { QuestionForm } from "@/components/admin/QuestionForm";
-import { fetchSubjects } from "@/lib/tryout-queries";
-import { fetchQuestion, updateQuestion } from "@/lib/tryout-admin-queries";
+import { QuestionForm } from "@frontend/components/admin/QuestionForm";
+import { fetchSubjects } from "@backend/queries/tryout";
+import { fetchQuestion, updateQuestion } from "@backend/queries/tryout-admin";
 
 export const Route = createFileRoute("/admin/questions/$id/edit")({
   component: EditQuestionPage,

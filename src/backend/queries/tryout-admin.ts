@@ -1,5 +1,5 @@
-import { supabase } from "@/integrations/supabase/client";
-import type { Question, TryoutEvent } from "@/lib/tryout-types";
+import { supabase } from "@backend/supabase/client";
+import type { Question, TryoutEvent } from "@backend/types/tryout";
 
 export type QuestionInsert = Omit<Question, "id"> & {
   correct_answer: "A" | "B" | "C" | "D" | "E";

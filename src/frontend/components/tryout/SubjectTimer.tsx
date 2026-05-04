@@ -1,5 +1,5 @@
 import { Clock } from "lucide-react";
-import { formatSeconds } from "@/hooks/useSubjectTimer";
+import { formatSeconds } from "@frontend/hooks/useSubjectTimer";
 
 export function SubjectTimer({ secondsLeft }: { secondsLeft: number }) {
   const danger = secondsLeft <= 60;

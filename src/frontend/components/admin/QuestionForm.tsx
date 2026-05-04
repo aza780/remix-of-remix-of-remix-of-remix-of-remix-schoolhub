@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { LatexPreview } from "@/components/admin/LatexPreview";
-import { uploadQuestionImage, type QuestionInsert } from "@/lib/tryout-admin-queries";
-import type { Question, Subject } from "@/lib/tryout-types";
+import { Button } from "@frontend/components/ui/button";
+import { Input } from "@frontend/components/ui/input";
+import { Label } from "@frontend/components/ui/label";
+import { Textarea } from "@frontend/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@frontend/components/ui/select";
+import { LatexPreview } from "@frontend/components/admin/LatexPreview";
+import { uploadQuestionImage, type QuestionInsert } from "@backend/queries/tryout-admin";
+import type { Question, Subject } from "@backend/types/tryout";
 import { toast } from "sonner";
 import { Upload, X } from "lucide-react";
 

@@ -1,12 +1,12 @@
 import { createFileRoute, Outlet, Link, useNavigate } from "@tanstack/react-router";
-import { useAuth } from "@/hooks/use-auth";
-import { useUserRole } from "@/hooks/useUserRole";
-import { can } from "@/lib/permissions";
+import { useAuth } from "@frontend/hooks/use-auth";
+import { useUserRole } from "@frontend/hooks/useUserRole";
+import { can } from "@backend/auth/permissions";
 import { toast } from "sonner";
 import { useEffect } from "react";
-import { signOut } from "@/lib/auth";
-import { Button } from "@/components/ui/button";
-import { FullPageSpinner } from "@/components/ui/FullPageSpinner";
+import { signOut } from "@backend/auth/auth";
+import { Button } from "@frontend/components/ui/button";
+import { FullPageSpinner } from "@frontend/components/ui/FullPageSpinner";
 import { LayoutDashboard, LogOut, FileQuestion, ClipboardList } from "lucide-react";
 
 export const Route = createFileRoute("/admin")({

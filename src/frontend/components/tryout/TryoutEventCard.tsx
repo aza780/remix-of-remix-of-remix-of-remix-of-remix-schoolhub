@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, Calendar } from "lucide-react";
-import { getEventStatus, type TryoutEvent } from "@/lib/tryout-types";
-import { formatDateID } from "@/lib/formatDate";
+import { getEventStatus, type TryoutEvent } from "@backend/types/tryout";
+import { formatDateID } from "@frontend/lib/formatDate";
 
 const STATUS_BADGE: Record<
   ReturnType<typeof getEventStatus>,

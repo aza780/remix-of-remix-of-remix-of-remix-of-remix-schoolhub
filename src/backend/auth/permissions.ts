@@ -1,4 +1,4 @@
-import type { UserRole } from "@/hooks/useUserRole";
+import type { UserRole } from "@frontend/hooks/useUserRole";
 
 export const can = {
   accessAdmin: (role: UserRole) =>

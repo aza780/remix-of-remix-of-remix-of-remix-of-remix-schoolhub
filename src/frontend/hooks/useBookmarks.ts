@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
-import { useAuth } from "@/hooks/use-auth";
+import { supabase } from "@backend/supabase/client";
+import { useAuth } from "@frontend/hooks/use-auth";
 import { toast } from "sonner";
 
 export function useBookmarkedIds() {

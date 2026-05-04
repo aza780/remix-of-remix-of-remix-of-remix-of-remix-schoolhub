@@ -1,4 +1,4 @@
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from "@backend/supabase/client";
 import {
   ANSWER_OPTIONS,
   SCORE_PER_CORRECT,
@@ -9,7 +9,7 @@ import {
   type TryoutAnswer,
   type TryoutEvent,
   type TryoutSession,
-} from "@/lib/tryout-types";
+} from "@backend/types/tryout";
 
 // ────────────────────────────────────────────────────────────────────────────
 // Subjects

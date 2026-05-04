@@ -1,13 +1,13 @@
 import { Link, useLocation, useNavigate } from "@tanstack/react-router";
 import { Home, GraduationCap, Trophy, Zap, Calendar, Menu, X, LogIn, LogOut, LayoutDashboard, User, Lock, FileText } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
-import { useAuth } from "@/hooks/use-auth";
-import { useUserRole } from "@/hooks/useUserRole";
-import { can } from "@/lib/permissions";
-import { useLogout } from "@/hooks/useLogout";
-import { Button } from "@/components/ui/button";
-import { UserAvatar } from "@/components/ui/UserAvatar";
-import { UserDropdown } from "@/components/ui/UserDropdown";
+import { useAuth } from "@frontend/hooks/use-auth";
+import { useUserRole } from "@frontend/hooks/useUserRole";
+import { can } from "@backend/auth/permissions";
+import { useLogout } from "@frontend/hooks/useLogout";
+import { Button } from "@frontend/components/ui/button";
+import { UserAvatar } from "@frontend/components/ui/UserAvatar";
+import { UserDropdown } from "@frontend/components/ui/UserDropdown";
 
 const NAV_LINKS = [
   { to: "/", label: "Beranda", icon: Home, matchExact: true },

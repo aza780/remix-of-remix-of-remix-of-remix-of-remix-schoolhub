@@ -1,9 +1,9 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { PostForm } from "@/components/PostForm";
-import { createPost, type PostInsert } from "@/lib/supabase-queries";
+import { PostForm } from "@frontend/components/PostForm";
+import { createPost, type PostInsert } from "@backend/queries/posts";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { useAuth } from "@/hooks/use-auth";
+import { useAuth } from "@frontend/hooks/use-auth";
 
 export const Route = createFileRoute("/admin/posts/new")({
   component: NewPostPage,

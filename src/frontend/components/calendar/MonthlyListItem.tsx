@@ -1,6 +1,6 @@
 import { useNavigate } from "@tanstack/react-router";
-import { BookmarkButton } from "@/components/BookmarkButton";
-import { formatDateID } from "@/lib/formatDate";
+import { BookmarkButton } from "@frontend/components/BookmarkButton";
+import { formatDateID } from "@frontend/lib/formatDate";
 
 interface MonthlyListItemPost {
   id: string;

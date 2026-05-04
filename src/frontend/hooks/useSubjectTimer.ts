@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { getOrCreateTimer } from "@/lib/tryout-queries";
-import type { Subject, SubjectTimer } from "@/lib/tryout-types";
+import { getOrCreateTimer } from "@backend/queries/tryout";
+import type { Subject, SubjectTimer } from "@backend/types/tryout";
 
 /**
  * Server-side timer per subject. Reads `expires_at` from DB so refresh

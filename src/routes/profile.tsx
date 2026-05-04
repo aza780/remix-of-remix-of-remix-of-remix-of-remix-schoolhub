@@ -1,14 +1,14 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { User, Bookmark, Mail, ExternalLink } from "lucide-react";
-import { Navbar } from "@/components/Navbar";
-import { useAuth } from "@/hooks/use-auth";
-import { useBookmarkedPosts } from "@/hooks/useBookmarks";
-import { PostCard } from "@/components/PostCard";
-import { PostCardSkeleton } from "@/components/PostCardSkeleton";
-import { UserAvatar } from "@/components/ui/UserAvatar";
-import { Button } from "@/components/ui/button";
-import type { Post } from "@/lib/supabase-queries";
+import { Navbar } from "@frontend/components/Navbar";
+import { useAuth } from "@frontend/hooks/use-auth";
+import { useBookmarkedPosts } from "@frontend/hooks/useBookmarks";
+import { PostCard } from "@frontend/components/PostCard";
+import { PostCardSkeleton } from "@frontend/components/PostCardSkeleton";
+import { UserAvatar } from "@frontend/components/ui/UserAvatar";
+import { Button } from "@frontend/components/ui/button";
+import type { Post } from "@backend/queries/posts";
 
 export const Route = createFileRoute("/profile")({
   component: ProfilePage,

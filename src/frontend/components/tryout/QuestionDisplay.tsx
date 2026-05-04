@@ -1,6 +1,6 @@
-import { LatexText } from "@/lib/latex";
-import type { AnswerOption, Question } from "@/lib/tryout-types";
-import { ANSWER_OPTIONS } from "@/lib/tryout-types";
+import { LatexText } from "@frontend/lib/latex";
+import type { AnswerOption, Question } from "@backend/types/tryout";
+import { ANSWER_OPTIONS } from "@backend/types/tryout";
 
 export function QuestionDisplay({
   question,

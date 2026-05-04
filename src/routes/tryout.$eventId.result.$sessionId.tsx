@@ -2,19 +2,19 @@ import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import { ArrowLeft, CheckCircle2, Trophy, XCircle } from "lucide-react";
-import { Navbar } from "@/components/Navbar";
-import { Button } from "@/components/ui/button";
-import { LatexText } from "@/lib/latex";
-import { supabase } from "@/integrations/supabase/client";
+import { Navbar } from "@frontend/components/Navbar";
+import { Button } from "@frontend/components/ui/button";
+import { LatexText } from "@frontend/lib/latex";
+import { supabase } from "@backend/supabase/client";
 import {
   fetchEventQuestionsFull,
   fetchEventRanking,
   fetchSession,
   fetchSessionAnswers,
   fetchSubjects,
-} from "@/lib/tryout-queries";
-import { useAuth } from "@/hooks/use-auth";
-import { SCORE_PER_CORRECT } from "@/lib/tryout-types";
+} from "@backend/queries/tryout";
+import { useAuth } from "@frontend/hooks/use-auth";
+import { SCORE_PER_CORRECT } from "@backend/types/tryout";
 
 export const Route = createFileRoute("/tryout/$eventId/result/$sessionId")({
   beforeLoad: async () => {

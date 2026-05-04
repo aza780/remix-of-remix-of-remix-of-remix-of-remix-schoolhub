@@ -1,5 +1,5 @@
-import { getInitials } from '@/lib/getInitials';
-import { getAvatarColor } from '@/lib/getAvatarColor';
+import { getInitials } from '@frontend/lib/getInitials';
+import { getAvatarColor } from '@frontend/lib/getAvatarColor';
 
 interface UserAvatarProps {
   email: string;

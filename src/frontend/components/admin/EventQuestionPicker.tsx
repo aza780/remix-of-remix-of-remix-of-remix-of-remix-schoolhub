@@ -6,25 +6,25 @@ import {
   addQuestionsToEvent,
   removeEventQuestion,
   reorderEventQuestion,
-} from "@/lib/tryout-admin-queries";
-import type { Subject } from "@/lib/tryout-types";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Checkbox } from "@/components/ui/checkbox";
+} from "@backend/queries/tryout-admin";
+import type { Subject } from "@backend/types/tryout";
+import { Button } from "@frontend/components/ui/button";
+import { Input } from "@frontend/components/ui/input";
+import { Checkbox } from "@frontend/components/ui/checkbox";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogFooter,
-} from "@/components/ui/dialog";
+} from "@frontend/components/ui/dialog";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
-import { LatexText } from "@/lib/latex";
+} from "@frontend/components/ui/accordion";
+import { LatexText } from "@frontend/lib/latex";
 import { ChevronUp, ChevronDown, X, Plus, Search } from "lucide-react";
 import { toast } from "sonner";
 

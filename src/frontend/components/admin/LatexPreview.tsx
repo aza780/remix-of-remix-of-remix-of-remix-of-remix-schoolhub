@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { LatexText } from "@/lib/latex";
+import { LatexText } from "@frontend/lib/latex";
 
 export function LatexPreview({ text }: { text: string }) {
   const [debounced, setDebounced] = useState(text);

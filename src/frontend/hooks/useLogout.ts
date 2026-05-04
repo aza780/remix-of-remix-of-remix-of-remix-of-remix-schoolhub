@@ -1,6 +1,6 @@
 import { useNavigate } from '@tanstack/react-router';
 import { useQueryClient } from '@tanstack/react-query';
-import { signOut } from '@/lib/auth';
+import { signOut } from '@backend/auth/auth';
 import { toast } from 'sonner';
 
 export function useLogout() {

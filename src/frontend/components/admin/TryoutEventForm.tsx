@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Button } from "@frontend/components/ui/button";
+import { Input } from "@frontend/components/ui/input";
+import { Label } from "@frontend/components/ui/label";
+import { Textarea } from "@frontend/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@frontend/components/ui/select";
 import { toast } from "sonner";
-import type { TryoutEvent } from "@/lib/tryout-types";
-import type { TryoutEventInsert } from "@/lib/tryout-admin-queries";
+import type { TryoutEvent } from "@backend/types/tryout";
+import type { TryoutEventInsert } from "@backend/queries/tryout-admin";
 
 function toLocalInput(iso: string | null | undefined): string {
   if (!iso) return "";

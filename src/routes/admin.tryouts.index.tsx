@@ -6,12 +6,12 @@ import {
   fetchAllTryoutEvents,
   updateTryoutEvent,
   deleteTryoutEvent,
-} from "@/lib/tryout-admin-queries";
-import { Button } from "@/components/ui/button";
+} from "@backend/queries/tryout-admin";
+import { Button } from "@frontend/components/ui/button";
 import {
   AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
   AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
+} from "@frontend/components/ui/alert-dialog";
 import { Plus, Pencil, Trash2, Eye, EyeOff } from "lucide-react";
 
 export const Route = createFileRoute("/admin/tryouts/")({
