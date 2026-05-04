@@ -8,18 +8,18 @@ import {
   fetchQuestionsPaged,
   deleteQuestion,
   fetchEventsUsingQuestion,
-} from "@/lib/tryout-admin-queries";
-import { fetchSubjects } from "@/lib/tryout-queries";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+} from "@backend/queries/tryout-admin";
+import { fetchSubjects } from "@backend/queries/tryout";
+import { Button } from "@frontend/components/ui/button";
+import { Input } from "@frontend/components/ui/input";
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
-} from "@/components/ui/select";
+} from "@frontend/components/ui/select";
 import {
   AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
   AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
-import { LatexText } from "@/lib/latex";
+} from "@frontend/components/ui/alert-dialog";
+import { LatexText } from "@frontend/lib/latex";
 import { Plus, Pencil, Trash2, Search } from "lucide-react";
 
 const searchSchema = z.object({

@@ -1,10 +1,10 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { useAuth } from "@/hooks/use-auth";
+import { useAuth } from "@frontend/hooks/use-auth";
 import { lovable } from "@/integrations/lovable";
-import { supabase } from "@/integrations/supabase/client";
-import { Button } from "@/components/ui/button";
+import { supabase } from "@backend/supabase/client";
+import { Button } from "@frontend/components/ui/button";
 
 export const Route = createFileRoute("/login")({
   component: LoginPage,

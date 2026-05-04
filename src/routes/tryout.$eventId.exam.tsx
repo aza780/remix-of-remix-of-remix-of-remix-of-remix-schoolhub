@@ -3,14 +3,14 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { toast } from "sonner";
 import { ArrowLeft, ArrowRight, CheckCircle2 } from "lucide-react";
-import { Navbar } from "@/components/Navbar";
-import { Button } from "@/components/ui/button";
-import { SubjectNav } from "@/components/tryout/SubjectNav";
-import { SubjectTimer } from "@/components/tryout/SubjectTimer";
-import { QuestionDisplay } from "@/components/tryout/QuestionDisplay";
-import { AnswerGrid } from "@/components/tryout/AnswerGrid";
-import { useSubjectTimer } from "@/hooks/useSubjectTimer";
-import { supabase } from "@/integrations/supabase/client";
+import { Navbar } from "@frontend/components/Navbar";
+import { Button } from "@frontend/components/ui/button";
+import { SubjectNav } from "@frontend/components/tryout/SubjectNav";
+import { SubjectTimer } from "@frontend/components/tryout/SubjectTimer";
+import { QuestionDisplay } from "@frontend/components/tryout/QuestionDisplay";
+import { AnswerGrid } from "@frontend/components/tryout/AnswerGrid";
+import { useSubjectTimer } from "@frontend/hooks/useSubjectTimer";
+import { supabase } from "@backend/supabase/client";
 import {
   fetchEventQuestionsForSubject,
   fetchEventSubjectsWithCounts,
@@ -23,8 +23,8 @@ import {
   submitSubject,
   updateSessionCurrentSubject,
   upsertAnswer,
-} from "@/lib/tryout-queries";
-import type { AnswerOption } from "@/lib/tryout-types";
+} from "@backend/queries/tryout";
+import type { AnswerOption } from "@backend/types/tryout";
 
 type ExamSearch = { sessionId: string };
 

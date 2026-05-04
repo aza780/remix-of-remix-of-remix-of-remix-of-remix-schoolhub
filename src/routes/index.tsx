@@ -2,11 +2,11 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useState, useMemo } from "react";
 import { Search, Sparkles, X } from "lucide-react";
-import { fetchPublishedPosts } from "@/lib/supabase-queries";
-import { Navbar } from "@/components/Navbar";
-import { PostCard } from "@/components/PostCard";
-import { PostCardSkeleton } from "@/components/PostCardSkeleton";
-import { useAuth } from "@/hooks/use-auth";
+import { fetchPublishedPosts } from "@backend/queries/posts";
+import { Navbar } from "@frontend/components/Navbar";
+import { PostCard } from "@frontend/components/PostCard";
+import { PostCardSkeleton } from "@frontend/components/PostCardSkeleton";
+import { useAuth } from "@frontend/hooks/use-auth";
 
 type HomeSearch = { category?: string };
 

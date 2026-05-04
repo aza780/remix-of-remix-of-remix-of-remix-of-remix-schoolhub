@@ -1,13 +1,13 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { PostForm } from "@/components/PostForm";
-import { updatePost, type PostUpdate } from "@/lib/supabase-queries";
+import { PostForm } from "@frontend/components/PostForm";
+import { updatePost, type PostUpdate } from "@backend/queries/posts";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
-import { useAuth } from "@/hooks/use-auth";
-import { useUserRole } from "@/hooks/useUserRole";
-import { can } from "@/lib/permissions";
+import { supabase } from "@backend/supabase/client";
+import { useAuth } from "@frontend/hooks/use-auth";
+import { useUserRole } from "@frontend/hooks/useUserRole";
+import { can } from "@backend/auth/permissions";
 import { toast } from "sonner";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from "@frontend/components/ui/skeleton";
 import { useEffect } from "react";
 
 export const Route = createFileRoute("/admin/posts/$id/edit")({

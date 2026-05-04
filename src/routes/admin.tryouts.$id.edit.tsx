@@ -1,11 +1,11 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { TryoutEventForm } from "@/components/admin/TryoutEventForm";
-import { EventQuestionPicker } from "@/components/admin/EventQuestionPicker";
-import { updateTryoutEvent } from "@/lib/tryout-admin-queries";
-import { fetchTryoutEvent, fetchSubjects } from "@/lib/tryout-queries";
-import { supabase } from "@/integrations/supabase/client";
+import { TryoutEventForm } from "@frontend/components/admin/TryoutEventForm";
+import { EventQuestionPicker } from "@frontend/components/admin/EventQuestionPicker";
+import { updateTryoutEvent } from "@backend/queries/tryout-admin";
+import { fetchTryoutEvent, fetchSubjects } from "@backend/queries/tryout";
+import { supabase } from "@backend/supabase/client";
 
 export const Route = createFileRoute("/admin/tryouts/$id/edit")({
   component: EditTryoutEventPage,

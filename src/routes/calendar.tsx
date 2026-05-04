@@ -1,16 +1,16 @@
 import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import { useState, useMemo, useCallback } from "react";
 import { ChevronLeft, ChevronRight, Filter, X, Calendar as CalendarIcon } from "lucide-react";
-import { Navbar } from "@/components/Navbar";
-import { useCalendarPosts } from "@/hooks/useCalendarPosts";
-import { getPostStatus } from "@/lib/getPostStatus";
-import { StatusBadge } from "@/components/StatusBadge";
-import { Button } from "@/components/ui/button";
-import { useIsMobile } from "@/hooks/use-mobile";
-import { ALL_CATEGORIES, CATEGORY_CONFIG, getCategoryConfig, type Category } from "@/lib/getCategoryConfig";
-import { MonthlyListSection } from "@/components/calendar/MonthlyListSection";
-import { getMonthLabelID } from "@/lib/formatDate";
-import { supabase } from "@/integrations/supabase/client";
+import { Navbar } from "@frontend/components/Navbar";
+import { useCalendarPosts } from "@frontend/hooks/useCalendarPosts";
+import { getPostStatus } from "@frontend/lib/getPostStatus";
+import { StatusBadge } from "@frontend/components/StatusBadge";
+import { Button } from "@frontend/components/ui/button";
+import { useIsMobile } from "@frontend/hooks/use-mobile";
+import { ALL_CATEGORIES, CATEGORY_CONFIG, getCategoryConfig, type Category } from "@frontend/lib/getCategoryConfig";
+import { MonthlyListSection } from "@frontend/components/calendar/MonthlyListSection";
+import { getMonthLabelID } from "@frontend/lib/formatDate";
+import { supabase } from "@backend/supabase/client";
 
 export const Route = createFileRoute("/calendar")({
   head: () => ({

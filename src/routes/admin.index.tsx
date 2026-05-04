@@ -1,14 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { fetchAllPosts, deletePost, togglePostStatus } from "@/lib/supabase-queries";
-import { getCategoryConfig } from "@/lib/getCategoryConfig";
-import { useAuth } from "@/hooks/use-auth";
-import { useUserRole } from "@/hooks/useUserRole";
-import { can } from "@/lib/permissions";
+import { fetchAllPosts, deletePost, togglePostStatus } from "@backend/queries/posts";
+import { getCategoryConfig } from "@frontend/lib/getCategoryConfig";
+import { useAuth } from "@frontend/hooks/use-auth";
+import { useUserRole } from "@frontend/hooks/useUserRole";
+import { can } from "@backend/auth/permissions";
 import { toast } from "sonner";
 import { Plus, Pencil, Trash2, Eye, EyeOff } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@frontend/components/ui/button";
+import { Skeleton } from "@frontend/components/ui/skeleton";
 import { useState } from "react";
 
 export const Route = createFileRoute("/admin/")({
