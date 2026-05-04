@@ -63,6 +63,8 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function AppGate() {
   const { loading } = useAuth();
+  // Mount the PWA hook so the iframe/preview unregister-guard runs globally.
+  usePWAInstall();
   if (loading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-background">
