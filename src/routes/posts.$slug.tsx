@@ -1,7 +1,8 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft, ExternalLink, Calendar } from "lucide-react";
 import { fetchPostBySlug } from "@backend/queries/posts";
+import { supabase } from "@backend/supabase/client";
 import { getDeadlineStatus, formatDeadline } from "@frontend/lib/helpers";
 import { getPostStatus } from "@frontend/lib/getPostStatus";
 import { getCategoryConfig } from "@frontend/lib/getCategoryConfig";
@@ -13,6 +14,15 @@ import { Navbar } from "@frontend/components/Navbar";
 import { useAuth } from "@frontend/hooks/use-auth";
 
 export const Route = createFileRoute("/posts/$slug")({
+  beforeLoad: async ({ location }) => {
+    const { data } = await supabase.auth.getSession();
+    if (!data.session) {
+      throw redirect({
+        to: "/login",
+        search: { redirect: location.href },
+      });
+    }
+  },
   component: PostDetailPage,
 });
 
