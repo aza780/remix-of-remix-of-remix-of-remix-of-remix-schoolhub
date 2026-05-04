@@ -1,9 +1,10 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { User, Bookmark, Mail, ExternalLink } from "lucide-react";
+import { User, Bookmark, Mail, ExternalLink, Download, Smartphone } from "lucide-react";
 import { Navbar } from "@frontend/components/Navbar";
 import { useAuth } from "@frontend/hooks/use-auth";
 import { useBookmarkedPosts } from "@frontend/hooks/useBookmarks";
+import { usePWAInstall } from "@frontend/hooks/usePWAInstall";
 import { PostCard } from "@frontend/components/PostCard";
 import { PostCardSkeleton } from "@frontend/components/PostCardSkeleton";
 import { UserAvatar } from "@frontend/components/ui/UserAvatar";
@@ -133,6 +134,12 @@ function ProfilTab({ email, createdAt }: { email: string; createdAt: string }) {
 }
 
 function ContactCard() {
+  const { canInstall, isInstalled, install } = usePWAInstall();
+
+  const handleInstall = async () => {
+    await install();
+  };
+
   return (
     <div className="rounded-xl border bg-card p-6">
       <h3 className="mb-4 text-base font-semibold text-foreground">Hubungi Kami</h3>
@@ -181,6 +188,41 @@ function ContactCard() {
 
           <ExternalLink className="h-4 w-4 shrink-0 text-muted-foreground/50 group-hover:text-primary" />
         </a>
+
+        {/* Install PWA */}
+        {isInstalled ? (
+          <div className="flex items-center gap-3 rounded-lg border border-border p-3">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400">
+              <Smartphone className="h-5 w-5" />
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="text-sm font-medium text-foreground">Aplikasi Terpasang</p>
+              <p className="truncate text-xs text-muted-foreground">
+                Kamu sudah memasang Agenda Prestasi.
+              </p>
+            </div>
+          </div>
+        ) : (
+          <button
+            type="button"
+            onClick={handleInstall}
+            disabled={!canInstall}
+            className="group flex w-full items-center gap-3 rounded-lg border border-border p-3 text-left transition-all duration-150 hover:border-primary/40 hover:bg-primary/5 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:border-border disabled:hover:bg-transparent"
+          >
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+              <Download className="h-5 w-5" />
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="text-sm font-medium text-foreground">Install Aplikasi</p>
+              <p className="truncate text-xs text-muted-foreground group-hover:text-primary">
+                {canInstall
+                  ? "Pasang Agenda Prestasi di perangkatmu"
+                  : "Buka di Chrome/Edge versi published untuk install"}
+              </p>
+            </div>
+            <Smartphone className="h-4 w-4 shrink-0 text-muted-foreground/50 group-hover:text-primary" />
+          </button>
+        )}
       </div>
 
       <p className="mt-4 text-xs text-muted-foreground">

@@ -1,6 +1,7 @@
 import { Outlet, Link, createRootRouteWithContext, HeadContent, Scripts } from "@tanstack/react-router";
 import { Toaster } from "sonner";
 import { AuthProvider, useAuth } from "@frontend/hooks/use-auth";
+import { usePWAInstall } from "@frontend/hooks/usePWAInstall";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import appCss from "../styles.css?url";
@@ -62,6 +63,8 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function AppGate() {
   const { loading } = useAuth();
+  // Mount the PWA hook so the iframe/preview unregister-guard runs globally.
+  usePWAInstall();
   if (loading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-background">
