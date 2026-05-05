@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Calendar, Clock, Megaphone } from "lucide-react";
-import type { Post } from "@backend/queries/posts";
+import type { PostListItem } from "@backend/queries/posts";
 import { getPostStatus } from "@frontend/lib/getPostStatus";
 import { getCategoryConfig } from "@frontend/lib/getCategoryConfig";
 import { formatDateID } from "@frontend/lib/formatDate";
@@ -43,7 +43,7 @@ function DateRow({
   );
 }
 
-export function PostCard({ post }: { post: Post }) {
+export function PostCard({ post }: { post: PostListItem }) {
   const postStatus = getPostStatus(post);
   const categoryConfig = getCategoryConfig(post.category);
   const hasAnyDate = post.open_date || post.deadline || post.announcement_date;
