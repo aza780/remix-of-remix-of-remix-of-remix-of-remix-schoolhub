@@ -5,9 +5,17 @@ export type Post = Database["public"]["Tables"]["posts"]["Row"];
 export type PostInsert = Database["public"]["Tables"]["posts"]["Insert"];
 export type PostUpdate = Database["public"]["Tables"]["posts"]["Update"];
 
+// Kolom ringkas untuk list view (tanpa `content` yang besar)
+const POST_LIST_COLUMNS =
+  "id,title,slug,description,category,status,image_url,link,open_date,deadline,announcement_date,author_id,created_at,updated_at";
+
 // Public queries
 export async function fetchPublishedPosts(category?: string, search?: string) {
-  let query = supabase.from("posts").select("*").eq("status", "published").order("created_at", { ascending: false });
+  let query = supabase
+    .from("posts")
+    .select(POST_LIST_COLUMNS)
+    .eq("status", "published")
+    .order("created_at", { ascending: false });
   if (category) query = query.eq("category", category);
   if (search) query = query.or(`title.ilike.%${search}%,description.ilike.%${search}%`);
   const { data, error } = await query;
@@ -16,6 +24,7 @@ export async function fetchPublishedPosts(category?: string, search?: string) {
 }
 
 export async function fetchPostBySlug(slug: string) {
+  // Detail view butuh semua kolom termasuk `content`
   const { data, error } = await supabase.from("posts").select("*").eq("slug", slug).single();
   if (error) throw error;
   return data;
@@ -23,7 +32,10 @@ export async function fetchPostBySlug(slug: string) {
 
 // Admin queries
 export async function fetchAllPosts() {
-  const { data, error } = await supabase.from("posts").select("*").order("created_at", { ascending: false });
+  const { data, error } = await supabase
+    .from("posts")
+    .select(POST_LIST_COLUMNS)
+    .order("created_at", { ascending: false });
   if (error) throw error;
   return data;
 }

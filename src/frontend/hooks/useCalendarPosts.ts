@@ -24,5 +24,7 @@ export function useCalendarPosts(year: number, month: number) {
       return data;
     },
     enabled: !authLoading,
+    staleTime: 5 * 60_000, // 5 menit — data kalender jarang berubah
+    gcTime: 10 * 60_000,
   });
 }

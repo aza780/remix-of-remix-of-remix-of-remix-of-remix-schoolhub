@@ -34,7 +34,16 @@ function DefaultErrorComponent({
 }
 
 export const getRouter = () => {
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 60_000, // 1 menit default
+        gcTime: 5 * 60_000, // 5 menit garbage collection
+        retry: 1,
+        refetchOnWindowFocus: false,
+      },
+    },
+  });
   const router = createRouter({
     routeTree,
     context: { queryClient },
