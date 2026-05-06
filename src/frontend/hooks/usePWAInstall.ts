@@ -1,13 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
 
 /**
- * usePWAInstall — captures the `beforeinstallprompt` event and exposes a
- * trigger to show the native install prompt.
- *
- * Also handles registering / unregistering the service worker safely:
- *  - In Lovable preview iframes & dev: actively unregister any existing SW.
- *  - In production (top-level window): the SW is auto-registered by
- *    vite-plugin-pwa with `registerType: "autoUpdate"`.
+ * usePWAInstall — captures `beforeinstallprompt` once at the module level
+ * and shares it across every component that calls the hook. Without the
+ * shared store, the first hook instance to mount swallows the event and
+ * any other instance (e.g. an Install button on /profile) would always
+ * see canInstall === false.
  */
 
 type BeforeInstallPromptEvent = Event & {
@@ -16,86 +14,100 @@ type BeforeInstallPromptEvent = Event & {
   userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
 };
 
+type Store = {
+  deferred: BeforeInstallPromptEvent | null;
+  installed: boolean;
+};
+
+const store: Store = { deferred: null, installed: false };
+const listeners = new Set<() => void>();
+let initialized = false;
+
+function emit() {
+  listeners.forEach((l) => l());
+}
+
+function initOnce() {
+  if (initialized || typeof window === "undefined") return;
+  initialized = true;
+
+  // Standalone detection
+  const mql = window.matchMedia("(display-mode: standalone)");
+  const checkInstalled = () => {
+    const installed =
+      mql.matches ||
+      (window.navigator as Navigator & { standalone?: boolean }).standalone ===
+        true;
+    if (installed !== store.installed) {
+      store.installed = installed;
+      emit();
+    }
+  };
+  checkInstalled();
+  mql.addEventListener?.("change", checkInstalled);
+
+  window.addEventListener("beforeinstallprompt", (e: Event) => {
+    e.preventDefault();
+    store.deferred = e as BeforeInstallPromptEvent;
+    emit();
+  });
+
+  window.addEventListener("appinstalled", () => {
+    store.deferred = null;
+    store.installed = true;
+    emit();
+  });
+
+  // Unregister stale SW inside Lovable preview iframe / preview hosts
+  const isInIframe = (() => {
+    try {
+      return window.self !== window.top;
+    } catch {
+      return true;
+    }
+  })();
+  const host = window.location.hostname;
+  const isPreviewHost =
+    host.includes("id-preview--") || host.includes("lovableproject.com");
+  if ((isInIframe || isPreviewHost) && "serviceWorker" in navigator) {
+    navigator.serviceWorker
+      .getRegistrations()
+      .then((regs) => regs.forEach((r) => r.unregister()))
+      .catch(() => {});
+  }
+}
+
 export type PWAInstallState = {
-  /** True when running as an installed PWA (display-mode: standalone). */
   isInstalled: boolean;
-  /** True when the browser has fired beforeinstallprompt and we can prompt. */
   canInstall: boolean;
-  /** Trigger the native install prompt. Resolves to true if accepted. */
   install: () => Promise<boolean>;
 };
 
 export function usePWAInstall(): PWAInstallState {
-  const [deferredPrompt, setDeferredPrompt] =
-    useState<BeforeInstallPromptEvent | null>(null);
-  const [isInstalled, setIsInstalled] = useState(false);
+  initOnce();
+
+  const [, setTick] = useState(0);
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
-
-    // Detect standalone mode (already installed)
-    const mql = window.matchMedia("(display-mode: standalone)");
-    const checkInstalled = () => {
-      setIsInstalled(
-        mql.matches ||
-          // iOS Safari standalone flag
-          (window.navigator as Navigator & { standalone?: boolean })
-            .standalone === true,
-      );
-    };
-    checkInstalled();
-    mql.addEventListener?.("change", checkInstalled);
-
-    const onBeforeInstall = (e: Event) => {
-      e.preventDefault();
-      setDeferredPrompt(e as BeforeInstallPromptEvent);
-    };
-    const onInstalled = () => {
-      setDeferredPrompt(null);
-      setIsInstalled(true);
-    };
-
-    window.addEventListener("beforeinstallprompt", onBeforeInstall);
-    window.addEventListener("appinstalled", onInstalled);
-
-    // Unregister any stale service worker when running inside an iframe
-    // (Lovable preview) or on a preview host. Must NEVER cache the editor.
-    const isInIframe = (() => {
-      try {
-        return window.self !== window.top;
-      } catch {
-        return true;
-      }
-    })();
-    const host = window.location.hostname;
-    const isPreviewHost =
-      host.includes("id-preview--") || host.includes("lovableproject.com");
-
-    if ((isInIframe || isPreviewHost) && "serviceWorker" in navigator) {
-      navigator.serviceWorker
-        .getRegistrations()
-        .then((regs) => regs.forEach((r) => r.unregister()))
-        .catch(() => {});
-    }
-
+    const listener = () => setTick((t) => t + 1);
+    listeners.add(listener);
     return () => {
-      mql.removeEventListener?.("change", checkInstalled);
-      window.removeEventListener("beforeinstallprompt", onBeforeInstall);
-      window.removeEventListener("appinstalled", onInstalled);
+      listeners.delete(listener);
     };
   }, []);
 
   const install = useCallback(async () => {
-    if (!deferredPrompt) return false;
-    await deferredPrompt.prompt();
-    const choice = await deferredPrompt.userChoice;
-    setDeferredPrompt(null);
+    if (!store.deferred) return false;
+    await store.deferred.prompt();
+    const choice = await store.deferred.userChoice;
+    store.deferred = null;
+    emit();
     return choice.outcome === "accepted";
-  }, [deferredPrompt]);
+  }, []);
 
   return {
-    isInstalled,
-    canInstall: !!deferredPrompt,
+    isInstalled: store.installed,
+    canInstall: !!store.deferred,
     install,
   };
 }
