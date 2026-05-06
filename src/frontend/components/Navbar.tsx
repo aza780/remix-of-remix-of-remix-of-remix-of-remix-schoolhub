@@ -99,7 +99,7 @@ export function Navbar() {
           </Link>
 
           {/* Desktop nav links */}
-          <div className="hidden items-center gap-1 md:flex">
+          <div className="hidden items-center gap-1 lg:flex">
             {NAV_LINKS.map((link) => {
               const active = isLinkActive(link);
               if (link.to === "/calendar") {
@@ -137,7 +137,7 @@ export function Navbar() {
           {/* Right section */}
           <div className="flex items-center gap-2">
             {user ? (
-              <div className="relative hidden md:block" ref={dropdownRef}>
+              <div className="relative hidden lg:block" ref={dropdownRef}>
                 <button
                   onClick={() => setDropdownOpen((v) => !v)}
                   className="rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
@@ -157,7 +157,7 @@ export function Navbar() {
                 )}
               </div>
             ) : (
-              <Link to="/login" className="hidden md:block">
+              <Link to="/login" className="hidden lg:block">
                 <Button variant="outline" size="sm">
                   <LogIn className="mr-1 h-4 w-4" />
                   Masuk
@@ -167,7 +167,7 @@ export function Navbar() {
 
             {/* Mobile hamburger */}
             <button
-              className="rounded-full p-2 text-muted-foreground hover:bg-secondary md:hidden"
+              className="rounded-full p-2 text-muted-foreground hover:bg-secondary lg:hidden"
               onClick={() => setMobileOpen((v) => !v)}
             >
               {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -188,7 +188,7 @@ export function Navbar() {
       <div
         className={`fixed left-0 right-0 top-16 z-50 overflow-hidden border-b bg-card shadow-md transition-all duration-200 ease-in-out ${
           mobileOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0 border-b-0"
-        } md:hidden`}
+        } lg:hidden`}
       >
         <div className="flex flex-col">
           {NAV_LINKS.map((link) => {
