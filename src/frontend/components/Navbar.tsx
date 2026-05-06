@@ -14,7 +14,7 @@ const NAV_LINKS = [
   { to: "/?category=scholarship", label: "Beasiswa", icon: GraduationCap, matchParam: "scholarship" },
   { to: "/?category=competition", label: "Lomba", icon: Trophy, matchParam: "competition" },
   { to: "/?category=event", label: "Event", icon: Zap, matchParam: "event" },
-  { to: "/tryout", label: "Tryout SNBT", icon: FileText, matchExact: false },
+  { to: "/tryout", label: "Tryout Gratis", icon: FileText, matchExact: false },
   { to: "/calendar", label: "Kalender", icon: Calendar, matchExact: false },
 ] as const;
 
