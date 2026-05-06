@@ -67,6 +67,7 @@ export function Navbar() {
       navigate({ to: "/" });
       return;
     }
+    navigate({ to: link.to });
   };
 
   const handleLogout = async () => {
